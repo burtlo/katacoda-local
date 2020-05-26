@@ -1,0 +1,26 @@
+{
+  "title": "Manage Secrets with Vault on Kubernetes",
+  "description": "The Vault Helm chart enables you to declaritively manage secrets for Vault-unaware deployments",
+  "difficulty": "Intermediate",
+  "time": "90",
+  "details": {
+    "steps": [
+      {
+        "title": "Step 1",
+        "text": "step1.md"
+      }
+    ],
+    "intro": {
+      "text": "intro.md"
+    },
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "environment": {
+    "uilayout": "terminal"
+  },
+  "backend": {
+    "imageid": "minikube-running"
+  }
+}
