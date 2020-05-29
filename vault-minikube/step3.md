@@ -22,7 +22,7 @@ The Vault pod is deployed in the default namespace.
 To verify, get all the pods within the `default` namespace.
 
 ```shell
-$ kubectl get pods
+kubectl get pods
 ```{{execute}}
 
 The `vault-0`, `vault-1` and `vault-2` pods report that they are `Running` but

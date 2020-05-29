@@ -20,10 +20,10 @@ kubectl get pods
 
 The web application pod is displayed here as the pod prefixed with `webapp`.
 
-~> **Additional waiting:** The deployment of the service requires the retrieval
-of the web application container from [Docker Hub](https://hub.docker.com/).
-This displays the STATUS of `ContainerCreating`. The pod reports that it is
-not ready (`0/1`).
+> **Additional waiting:** The deployment of the service requires the retrieval
+> of the web application container from [Docker Hub](https://hub.docker.com/).
+> This displays the STATUS of `ContainerCreating`. The pod reports that it is
+> not ready (`0/1`).
 
 This web application is running an HTTP service that is listening on port 8080.
 
@@ -32,17 +32,14 @@ forward](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
 all requests made to `http://localhost:8080` to the webapp pod on port 8080.
 
 ```shell
-kubectl port-forward webapp-5c76d96c6-r4mcq 8080:8080
+kubectl port-forward $(kubectl get pod -l app=webapp -o jsonpath="{.items[0].metadata.name}") 8080:8080
 ```{{execute T2}}
 
 In the original terminal, perform a `curl` request at `http://localhost:8080`.
 
 ```shell
 curl http://localhost:8080
-{"password"=>"static-secret", "username"=>"static-user"}%
 ```{{execute T1}}
-
-![Web application showing username and password secret](/img/vault-k8s/minikube-vault-helm-webapp.png)
 
 The web application running on port 8080 in the _webapp_ pod:
 

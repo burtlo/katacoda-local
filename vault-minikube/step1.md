@@ -13,9 +13,9 @@ Verify the status of the Minikube cluster.
 minikube status
 ```{{execute}}
 
-~> **Additional waiting:** Even if this last command completed successfully, you
-may have to wait for Minikube to be available. If an error is displayed, try
-again after a few minutes.
+> **Additional waiting:** Even if this last command completed successfully, you
+> may have to wait for Minikube to be available. If an error is displayed, try
+> again after a few minutes.
 
 The host, kubelet, and apiserver report that they are running. The `kubectl`, a
 CLI for running commands against Kubernetes cluster, is also configured to

@@ -22,7 +22,7 @@ Vault is now ready for you to login with the initial root token.
 Login with the root token.
 
 ```shell
-vault login s.VgQvaXl8xGFO1RUxAPbPbsfN
+vault login
 ```{{execute}}
 
 Enable kv-v2 secrets at the path `secret`.
@@ -30,11 +30,6 @@ Enable kv-v2 secrets at the path `secret`.
 ```shell
 vault secrets enable -path=secret kv-v2
 ```{{execute}}
-
-~> **Learn more:** This guide focuses on Vault's integration with Kubernetes and
-not interacting with the key-value secrets engine. For more information refer to
-the [Static Secrets: Key/Value Secret](/vault/developer/sm-static-secrets)
-guide.
 
 Create a secret at path `secret/webapp/config` with a `username` and `password`.
 

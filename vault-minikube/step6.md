@@ -39,7 +39,7 @@ vault write auth/kubernetes/role/webapp \
         bound_service_account_namespaces=default \
         policies=webapp \
         ttl=24h
-```
+```{{execute}}
 
 The role connects the Kubernetes service account, `vault`, and namespace,
 `default`, with the Vault policy, `webapp`. The tokens returned after

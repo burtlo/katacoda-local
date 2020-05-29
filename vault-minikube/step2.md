@@ -14,7 +14,7 @@ Install the Consul Helm chart version 0.18.0 with pods prefixed with the name
 helm install consul \
     --values helm-consul-values.yml \
     https://github.com/hashicorp/consul-helm/archive/v0.18.0.tar.gz
-```
+```{{execute}}
 
 The installation of the Helm chart displays the namespace, status, and resources
 created. The [server](https://www.consul.io/docs/glossary.html#server) and
