@@ -2,14 +2,8 @@ Vault's Helm chart by default launches with a file storage backend. To utilize
 the Consul cluster as a storage backend requires Vault to be run in
 high-availability mode.
 
-Display the parameters in `helm-vault-values.yml`.
-
-```shell
-cat helm-vault-values.yml
-```{{execute}}
-
 Install the Vault Helm chart version 0.4.0 with pods prefixed with the name
-`vault` and apply the values found in `helm-vault-values.yml`.
+`vault` and apply the values found in `helm-vault-values.yml`{{open}}.
 
 ```shell
 helm install vault \

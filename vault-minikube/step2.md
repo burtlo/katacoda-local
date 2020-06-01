@@ -1,14 +1,8 @@
 Consul's Helm chart by default starts more services than required to act as
 Vault's storage backend.
 
-Display the parameters in `helm-consul-values.yml`.
-
-```
-cat helm-consul-values.yml
-```{{execute}}
-
 Install the Consul Helm chart version 0.18.0 with pods prefixed with the name
-`consul` and apply the values found in `helm-consul-values.yml`.
+`consul` and apply the values found in `helm-consul-values.yml`{{open}}.
 
 ```shell
 helm install consul \

@@ -22,6 +22,7 @@ Vault is now ready for you to login with the initial root token.
 Login with the root token.
 
 ```shell
+echo "When prompted for your Token copy & paste the token displayed above"
 vault login
 ```{{execute}}
 
