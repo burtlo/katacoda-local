@@ -29,6 +29,8 @@ Get all the pods within the `default` namespace.
 kubectl get pods
 ```{{execute}}
 
+Wait until the redeployment is complete and the new pod reports `READY 2/2`.
+
 Finally, display the secret written to the `orgchart` container.
 
 ```shell

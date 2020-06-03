@@ -32,3 +32,5 @@ Verify that no secrets are written to the `orgchart` container in the pod.
 ```shell
 kubectl exec $(kubectl get pod -l app=orgchart -o jsonpath="{.items[0].metadata.name}") --container orgchart -- ls /vault/secrets
 ```{{execute}}
+
+The output displays that there is no such file or directory named `/vault/secrets`.

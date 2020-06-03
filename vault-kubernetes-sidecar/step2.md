@@ -29,3 +29,8 @@ run in development mode is automatically initialized and unsealed.
 
 The pod prefixed with `vault-agent-injector-` performs the injection based on
 the annotations present or patched on a deployment.
+
+Wait until the server and injector pods report that they are
+[`Running`](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)
+and ready (`1/1`).
+

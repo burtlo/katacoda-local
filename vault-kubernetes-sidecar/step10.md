@@ -16,7 +16,7 @@ Get all the pods within the `default` namespace.
 kubectl get pods
 ```{{execute}}
 
-The website deployment creates a pod but it never is ready.
+The website deployment creates a pod but it is **NEVER** ready.
 
 View the logs of the `vault-agent-init` container in the `website` pod.
 

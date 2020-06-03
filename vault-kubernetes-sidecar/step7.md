@@ -31,8 +31,9 @@ kubectl get pods
 ```{{execute}}
 
 A new `orgchart` pod starts alongside the existing pod. When it is ready the
-original terminates and removes itself from the list of active pods. The
-redeployment is complete when the pod reports `READY 2/2`.
+original terminates and removes itself from the list of active pods.
+
+Wait until the redeployment is complete and the new pod reports `READY 2/2`.
 
 This new pod now launches two containers. The application container, named
 `orgchart`, and the Vault Agent container, named `vault-agent`.
