@@ -4,6 +4,7 @@
   "description": "Deploy Vault-unaware applications on Kubernetes that consume Vault Secrets.",
   "difficulty": "intermediate",
   "time": "30 minutes",
+  "icon": "fa-vault",
   "details": {
     "steps": [
       {
