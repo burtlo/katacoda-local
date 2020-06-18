@@ -1,11 +1,11 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: nginx-secrets-store-inline
+  name: webapp
 spec:
   containers:
-  - image: nginx
-    name: nginx
+  - image: jweissig/app:0.0.1
+    name: webapp
     volumeMounts:
     - name: secrets-store-inline
       mountPath: "/mnt/secrets-store"

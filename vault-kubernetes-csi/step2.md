@@ -13,8 +13,8 @@ Add the Hashicorp helm repository.
 helm repo add hashicorp https://helm.releases.hashicorp.com
 ```{{execute}}
 
-Install the latest version of the Vault server running in development mode with the injector service disabled.
-
+Install the latest version of the Vault server running in development mode with
+the injector service disabled.
 
 ```shell
 helm install vault hashicorp/vault \

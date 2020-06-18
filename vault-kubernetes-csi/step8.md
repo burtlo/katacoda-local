@@ -9,8 +9,6 @@ The pod, named `nginx`, defines and mounts a read-only
 volume to `/mnt/secrets-store`. The objects defined in the `internal-database`
 *SecretProviderClass* are written as files within that path.
 
-Create the pod named `internal-database`.
-
 Apply a pod named `nginx`.
 
 ```shell
