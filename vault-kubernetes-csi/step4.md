@@ -6,7 +6,7 @@ Token. This token is provided to each pod when it is created.
 First, start an interactive shell session on the `vault-0` pod.
 
 ```shell
-$ kubectl exec -it vault-0 -- /bin/sh
+kubectl exec -it vault-0 -- /bin/sh
 ```{{execute}}
 
 Your system prompt is replaced with a new prompt `/ $`.
@@ -38,20 +38,20 @@ path "sys/mounts" {
   capabilities = ["read"]
 }
 
-path "internal/data/database/config" {
+path "secret/data/db-pass" {
   capabilities = ["read"]
 }
 EOF
 ```{{execute}}
 
-Create a Kubernetes authentication role named `internal-app-csi`.
+Create a Kubernetes authentication role named `database`.
 
 ```shell
-vault write auth/kubernetes/role/internal-app-csi \
-        bound_service_account_names=secrets-store-csi-driver \
-        bound_service_account_namespaces=default \
-        policies=internal-app=csi \
-        ttl=24h
+vault write auth/kubernetes/role/database \
+    bound_service_account_names=secrets-store-csi-driver \
+    bound_service_account_namespaces=default \
+    policies=internal-app-csi \
+    ttl=20m
 ```{{execute}}
 
 The role connects the Kubernetes service account, `secrets-store-csi-driver`,

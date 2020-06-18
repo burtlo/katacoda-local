@@ -15,6 +15,9 @@ Kubernetes-Secrets-Store-CSI-Driver.
 kubectl apply --filename daemon-set-provider-vault.yml
 ```{{execute}}
 
+Wait until `csi-secrets-store-provider-vault` is [`Running`](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)
+and ready (`1/1`).
+
 Verify that a csi-secrets-store-provider-vault pod, prefixed with
 `csi-secrets-store-provider-vault`, is running in the `default` namespace.
 

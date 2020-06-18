@@ -16,4 +16,4 @@ spec:
         driver: secrets-store.csi.k8s.io
         readOnly: true
         volumeAttributes:
-          secretProviderClass: "internal-database"
+          secretProviderClass: "vault-database"

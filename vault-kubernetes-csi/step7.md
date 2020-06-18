@@ -5,9 +5,9 @@ address of the Vault server, the name of the Vault Kubernetes authentication
 role, and the secrets.
 
 View the definition of the SecretProviderClass
-`secret-provider-class-internal-database.yml`{{open}}.
+`secret-provider-class-vault-database.yml`{{open}}.
 
-The `internal-database` SecretProviderClass describes two objects. Each object
+The `vault-database` SecretProviderClass describes two objects. Each object
 defines:
 
 - `objectPath` is the path to the secret defined in Vault. Prefaced with a
@@ -16,15 +16,15 @@ defines:
 - `objectVersion` - the version of the secret. When none is specified the latest
   is retrieved.
 
-Create a SecretProviderClass named `internal-database`.
+Create a SecretProviderClass named `vault-database`.
 
 ```shell
-kubectl apply --filename secret-provider-class-internal-database.yml
+kubectl apply --filename secret-provider-class-vault-database.yml
 ```{{execute}}
 
-Verify that the SecretProviderClass, named `internal-database` has been defined
+Verify that the SecretProviderClass, named `vault-database` has been defined
 in the default namespace.
 
 ```shell
-kubectl describe SecretProviderClass internal-database
+kubectl describe SecretProviderClass vault-database
 ```{{execute}}
