@@ -1,7 +1,7 @@
 {
   "pathwayTitle": "Learn HashiCorp Vault",
-  "title": "Injecting Secrets into Kubernetes Pods via Vault Helm Sidecar",
-  "description": "Deploy Vault-unaware applications on Kubernetes that consume Vault Secrets.",
+  "title": "Mount Vault Secrets through Container Storage Interface (CSI) Volume",
+  "description": "Mount Vault secrets in your pods and deployments through a Container Storage Interface (CSI) Volume",
   "difficulty": "intermediate",
   "time": "30 minutes",
   "icon": "fa-vault",
@@ -17,7 +17,7 @@
         "text": "step2.md"
       },
       {
-        "title": "Install the Vault Helm chart",
+        "title": "Set a secret in Vault",
         "text": "step3.md"
       },
       {
@@ -25,32 +25,20 @@
         "text": "step4.md"
       },
       {
-        "title": "Define a Kubernetes service account",
+        "title": "Install the secrets store CSI driver",
         "text": "step5.md"
       },
       {
-        "title": "Launch an application",
+        "title": "Install the provider-vault executable",
         "text": "step6.md"
       },
       {
-        "title": "Inject secrets into the pod",
+        "title": "Define a SecretProviderClass resource",
         "text": "step7.md"
       },
       {
-        "title": "Apply a template to the injected secrets",
+        "title": "Create a pod with secret mounted",
         "text": "step8.md"
-      },
-      {
-        "title": "Deployment with annotations",
-        "text": "step9.md"
-      },
-      {
-        "title": "Secrets are bound to the service account",
-        "text": "step10.md"
-      },
-      {
-        "title": "Secrets are bound to the namespace",
-        "text": "step11.md"
       }
     ],
     "intro": {
@@ -59,13 +47,9 @@
     },
     "assets": {
       "host01": [
-        { "file": "service-account-internal-app.yml", "target": "~/" },
-        { "file": "deployment-01-orgchart.yml", "target": "~/" },
-        { "file": "deployment-02-inject-secrets.yml", "target": "~/" },
-        { "file": "deployment-03-inject-secrets-as-template.yml", "target": "~/" },
-        { "file": "deployment-04-payrole.yml", "target": "~/" },
-        { "file": "deployment-05-website.yml", "target": "~/" },
-        { "file": "deployment-06-issues.yml", "target": "~/" }
+        { "file": "daemon-set-provider-vault.yml", "target": "~/" },
+        { "file": "pod-nginx.yml", "target": "~/" },
+        { "file": "secret-provider-class-internal-database.yml", "target": "~/" }
       ]
     },
     "finish": {
