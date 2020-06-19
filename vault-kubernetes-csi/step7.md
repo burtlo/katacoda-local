@@ -7,8 +7,7 @@ role, and the secrets.
 View the definition of the SecretProviderClass
 `secret-provider-class-vault-database.yml`{{open}}.
 
-The `vault-database` SecretProviderClass describes two objects. Each object
-defines:
+The `vault-database` SecretProviderClass describes one secret object:
 
 - `objectPath` is the path to the secret defined in Vault. Prefaced with a
   forward-slash.

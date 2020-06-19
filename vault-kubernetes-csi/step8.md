@@ -25,7 +25,7 @@ Finally, read the password secret written to the file system at
 `/mnt/secrets-store/db-pass` on the webapp pod.
 
 ```shell
-kubectl exec webapp -- cat /mnt/secrets-store/db-pass
+kubectl exec webapp -- cat /mnt/secrets-store/db-pass ; echo
 ```{{execute}}
 
 The value displayed matches the `password` value for the secret
