@@ -17,7 +17,7 @@ prefixed with `vault.hashicorp.com`.
 Patch the `orgchart` deployment defined in `patch-inject-secrets.yml`.
 
 ```shell
-kubectl patch deployment orgchart --patch "$(cat patch-inject-secrets.yml)"
+oc patch deployment orgchart --patch "$(cat patch-inject-secrets.yml)"
 ```{{execute}}
 
 A new `orgchart` pod starts alongside the existing pod. When it is ready the
@@ -26,7 +26,7 @@ original terminates and removes itself from the list of active pods.
 Verify that the `orgchart` pod is running in the default namespace.
 
 ```shell
-kubectl get pods
+oc get pods
 ```{{execute}}
 
 Wait until the re-deployed `orgchart` pod is running and ready (`2/2`).
@@ -37,13 +37,13 @@ This new pod now launches two containers. The application container, named
 Display the logs of the `vault-agent` container in the new `orgchart` pod.
 
 ```shell
-kubectl logs $(kubectl get pod -l app=orgchart -o jsonpath="{.items[0].metadata.name}") --container vault-agent
+oc logs $(oc get pod -l app=orgchart -o jsonpath="{.items[0].metadata.name}") --container vault-agent
 ```{{execute}}
 
 Display the secret written to the `orgchart` container.
 
 ```shell
-kubectl exec $(kubectl get pod -l app=orgchart -o jsonpath="{.items[0].metadata.name}") --container orgchart -- cat /vault/secrets/database-config.txt
+oc exec $(oc get pod -l app=orgchart -o jsonpath="{.items[0].metadata.name}") --container orgchart -- cat /vault/secrets/database-config.txt
 ```{{execute}}
 
 The unformatted secret data is present on the container.

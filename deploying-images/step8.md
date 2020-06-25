@@ -19,13 +19,13 @@ string.
 Apply the updated annotations.
 
 ```shell
-kubectl patch deployment orgchart --patch "$(cat patch-inject-secrets-as-template.yml)"
+oc patch deployment orgchart --patch "$(cat patch-inject-secrets-as-template.yml)"
 ```{{execute}}
 
 Get all the pods within the default namespace.
 
 ```shell
-kubectl get pods
+oc get pods
 ```{{execute}}
 
 Wait until the re-deployed `orgchart` pod reports that it is running and ready
@@ -34,7 +34,7 @@ Wait until the re-deployed `orgchart` pod reports that it is running and ready
 Display the secret written to the `orgchart` container.
 
 ```shell
-kubectl exec -it $(kubectl get pod -l app=orgchart -o jsonpath="{.items[0].metadata.name}") -c orgchart -- cat /vault/secrets/database-config.txt
+oc exec -it $(oc get pod -l app=orgchart -o jsonpath="{.items[0].metadata.name}") -c orgchart -- cat /vault/secrets/database-config.txt
 ```{{execute}}
 
 The secrets are rendered in a PostgreSQL connection string is present on the

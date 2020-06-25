@@ -10,13 +10,13 @@ The name of this deployment is `orgchart`. The
 Apply the deployment defined in `deployment-orgchart.yml`.
 
 ```shell
-kubectl apply --filename deployment-orgchart.yml
+oc apply --filename deployment-orgchart.yml
 ```{{execute}}
 
 Get all the pods within the default namespace.
 
 ```shell
-kubectl get pods
+oc get pods
 ```{{execute}}
 
 Wait until the `orgchart` pod reports that it is running and ready (`1/1`).
@@ -24,7 +24,7 @@ Wait until the `orgchart` pod reports that it is running and ready (`1/1`).
 Verify that no secrets are written to the `orgchart` container in the pod.
 
 ```shell
-kubectl exec $(kubectl get pod -l app=orgchart -o jsonpath="{.items[0].metadata.name}") --container orgchart -- ls /vault/secrets
+oc exec $(oc get pod -l app=orgchart -o jsonpath="{.items[0].metadata.name}") --container orgchart -- ls /vault/secrets
 ```{{execute}}
 
 The output displays that there is no such file or directory named `/vault/secrets`.
