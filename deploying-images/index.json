@@ -85,39 +85,39 @@
       "client": [
         {
           "file": "deployment-issues.yml",
-          "target": "~/"
+          "target": "/root"
         },
         {
           "file": "deployment-orgchart.yml",
-          "target": "~/"
+          "target": "/root"
         },
         {
           "file": "deployment-website.yml",
-          "target": "~/"
+          "target": "/root"
         },
         {
           "file": "patch-inject-secrets.yml",
-          "target": "~/"
+          "target": "/root"
         },
         {
           "file": "patch-inject-secrets-as-template.yml",
-          "target": "~/"
+          "target": "/root"
         },
         {
           "file": "patch-issues.yml",
-          "target": "~/"
+          "target": "/root"
         },
         {
           "file": "patch-website.yml",
-          "target": "~/"
+          "target": "/root"
         },
         {
           "file": "pod-payroll.yml",
-          "target": "~/"
+          "target": "/root"
         },
         {
           "file": "service-account-internal-app.yml",
-          "target": "~/"
+          "target": "/root"
         }
       ]
     },
