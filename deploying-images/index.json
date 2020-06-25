@@ -1,6 +1,6 @@
 {
   "pathwayTitle": "Learn HashiCorp Vault",
-  "title": "Injecting Secrets into OpenShif Pods via Vault Agent Injector",
+  "title": "Injecting Secrets into OpenShift Pods via Vault Agent Injector",
   "description": "Deploy Vault-unaware applications on Kubernetes that consume Vault Secrets.",
   "difficulty": "intermediate",
   "time": "30 minutes",
@@ -45,6 +45,44 @@
     },
     "assets": {
       "host01": [
+        {
+          "file": "deployment-issues.yml",
+          "target": "~/"
+        },
+        {
+          "file": "deployment-orgchart.yml",
+          "target": "~/"
+        },
+        {
+          "file": "deployment-website.yml",
+          "target": "~/"
+        },
+        {
+          "file": "patch-inject-secrets.yml",
+          "target": "~/"
+        },
+        {
+          "file": "patch-inject-secrets-as-template.yml",
+          "target": "~/"
+        },
+        {
+          "file": "patch-issues.yml",
+          "target": "~/"
+        },
+        {
+          "file": "patch-website.yml",
+          "target": "~/"
+        },
+        {
+          "file": "pod-payroll.yml",
+          "target": "~/"
+        },
+        {
+          "file": "service-account-internal-app.yml",
+          "target": "~/"
+        }
+      ],
+      "client": [
         {
           "file": "deployment-issues.yml",
           "target": "~/"
