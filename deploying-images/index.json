@@ -85,20 +85,20 @@
     },
     "finish": {
       "text": "finish.md"
-    },
-    "environment": {
-      "showdashboard": true,
-      "uilayout": "editor-terminal",
-      "hideHiddenFiles": true,
-      "dashboards": [
-        {
-          "name": "Console",
-          "href": "https://console-openshift-console-[[HOST_SUBDOMAIN]]-443-[[KATACODA_HOST]].environments.katacoda.com"
-        }
-      ]
-    },
-    "backend": {
-      "imageid": "openshift-4-2"
     }
+  },
+  "environment": {
+    "showdashboard": true,
+    "uilayout": "editor-terminal",
+    "hideHiddenFiles": true,
+    "dashboards": [
+      {
+        "name": "Console",
+        "href": "https://console-openshift-console-[[HOST_SUBDOMAIN]]-443-[[KATACODA_HOST]].environments.katacoda.com"
+      }
+    ]
+  },
+  "backend": {
+    "imageid": "openshift-4-2"
   }
 }
