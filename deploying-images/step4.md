@@ -5,7 +5,7 @@ each pod when it is created.
 Start an interactive shell session on the `vault-0` pod.
 
 ```shell
-kubectl exec -it vault-0 -- /bin/sh
+oc exec -it vault-0 -- /bin/sh
 ```{{execute}}
 
 Enable the Kubernetes authentication method.

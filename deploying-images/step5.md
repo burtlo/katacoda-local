@@ -4,7 +4,7 @@ named `internal-app`. This service account does not yet exist.
 Verify that the Kubernetes service account named `internal-app` does not exist.
 
 ```shell
-kubectl get serviceaccounts
+oc get serviceaccounts
 ```{{execute}}
 
 This account does not exist within the list of service accounts.
@@ -17,13 +17,13 @@ This definition of the service account creates the account with the name
 Create the service account.
 
 ```shell
-kubectl apply --filename service-account-internal-app.yml
+oc apply --filename service-account-internal-app.yml
 ```{{execute}}
 
 Get all the service accounts within the default namespace.
 
 ```shell
-kubectl get serviceaccounts
+oc get serviceaccounts
 ```{{execute}}
 
 The name of the service account here aligns with the name assigned to the

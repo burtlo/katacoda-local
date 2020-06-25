@@ -5,7 +5,7 @@ expect Vault to store a username and password stored at the path
 Start an interactive shell session on the `vault-0` pod.
 
 ```shell
-kubectl exec -it vault-0 -- /bin/sh
+oc exec -it vault-0 -- /bin/sh
 ```{{execute}}
 
 Your system prompt is replaced with a new prompt `/ $`. Commands issued at this

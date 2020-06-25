@@ -1,70 +1,104 @@
 {
-    "icon": "fa-openshift",
-    "title": "Deploying Applications From Images",
-    "description": "",
-    "pathwayTitle": "OpenShift",
-    "difficulty": "beginner",
-    "time": "10-15 minutes",
-    "backend": {
-        "imageid": "openshift-4-2"
+  "pathwayTitle": "Learn HashiCorp Vault",
+  "title": "Injecting Secrets into OpenShif Pods via Vault Agent Injector",
+  "description": "Deploy Vault-unaware applications on Kubernetes that consume Vault Secrets.",
+  "difficulty": "intermediate",
+  "time": "30 minutes",
+  "icon": "fa-vault",
+  "details": {
+    "steps": [
+      {
+        "title": "Create an Initial Project",
+        "text": "step1.md"
+      },
+      {
+        "title": "Install the Vault Helm chart",
+        "text": "step2.md"
+      },
+      {
+        "title": "Set a secret in Vault",
+        "text": "step3.md"
+      },
+      {
+        "title": "Configure Kubernetes authentication",
+        "text": "step4.md"
+      },
+      {
+        "title": "Define a Kubernetes service account",
+        "text": "step5.md"
+      },
+      {
+        "title": "Launch an application",
+        "text": "step6.md"
+      },
+      {
+        "title": "Inject secrets into the pod",
+        "text": "step7.md"
+      },
+      {
+        "title": "Apply a template to the injected secrets",
+        "text": "step8.md"
+      }
+    ],
+    "intro": {
+      "text": "intro.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "deployment-issues.yml",
+          "target": "~/"
+        },
+        {
+          "file": "deployment-orgchart.yml",
+          "target": "~/"
+        },
+        {
+          "file": "deployment-website.yml",
+          "target": "~/"
+        },
+        {
+          "file": "patch-inject-secrets.yml",
+          "target": "~/"
+        },
+        {
+          "file": "patch-inject-secrets-as-template.yml",
+          "target": "~/"
+        },
+        {
+          "file": "patch-issues.yml",
+          "target": "~/"
+        },
+        {
+          "file": "patch-website.yml",
+          "target": "~/"
+        },
+        {
+          "file": "pod-payroll.yml",
+          "target": "~/"
+        },
+        {
+          "file": "service-account-internal-app.yml",
+          "target": "~/"
+        }
+      ]
+    },
+    "finish": {
+      "text": "finish.md"
     },
     "environment": {
-        "showdashboard": true,
-        "dashboards": [{"name": "Console", "href": "https://console-openshift-console-[[HOST_SUBDOMAIN]]-443-[[KATACODA_HOST]].environments.katacoda.com"}],
-        "uilayout": "terminal-iframe"
+      "showdashboard": true,
+      "uilayout": "editor-terminal",
+      "hideHiddenFiles": true,
+      "dashboards": [
+        {
+          "name": "Console",
+          "href": "https://console-openshift-console-[[HOST_SUBDOMAIN]]-443-[[KATACODA_HOST]].environments.katacoda.com"
+        }
+      ]
     },
-    "details": {
-        "steps": [{
-            "title": "Create an Initial Project",
-            "text": "step1.md"
-        },
-        {
-            "title": "Install the Vault Helm chart",
-            "text": "step2.md"
-        },
-        {
-            "title": "Set a secret in Vault",
-            "text": "step3.md"
-        },
-        {
-            "title": "Configure Kubernetes authentication",
-            "text": "step4.md"
-        },
-        {
-            "title": "Define a Kubernetes service account",
-            "text": "step5.md"
-        },
-        {
-            "title": "Launch an application",
-            "text": "step6.md"
-        },
-        {
-            "title": "Inject secrets into the pod",
-            "text": "step7.md"
-        },
-        {
-            "title": "Apply a template to the injected secrets",
-            "text": "step8.md"
-        }
-        ],
-        "intro": {
-            "text": "intro.md"
-        },
-        "finish": {
-            "text": "finish.md"
-        },
-        "assets": {
-            "host01": [
-              { "file": "deployment-issues.yml", "target": "~/" },
-              { "file": "deployment-orgchart.yml", "target": "~/" },
-              { "file": "deployment-website.yml", "target": "~/" },
-              { "file": "patch-inject-secrets.yml", "target": "~/" },
-              { "file": "patch-inject-secrets-as-template.yml", "target": "~/" },
-              { "file": "patch-issues.yml", "target": "~/" },
-              { "file": "patch-website.yml", "target": "~/" },
-              { "file": "pod-payroll.yml", "target": "~/" },
-              { "file": "service-account-internal-app.yml", "target": "~/" }
-            ]
-        }
+    "backend": {
+      "imageid": "openshift-4-2"
     }
+  }
 }
