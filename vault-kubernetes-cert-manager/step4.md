@@ -78,5 +78,5 @@ role.
 Exit the `vault-0` pod.
 
 ```shell
-$ exit
-```
+exit
+```{{execute}}

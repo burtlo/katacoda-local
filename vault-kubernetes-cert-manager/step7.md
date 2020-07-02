@@ -22,6 +22,12 @@ kubectl get secrets
 
 The issuer secret is displayed here as the secret prefixed with `issuer-token`.
 
+View the name of the `issuer` secret.
+
+```shell
+kubectl get serviceaccount issuer -o json | jq -r ".secrets[].name"
+```{{execute}}
+
 Create a variable named `ISSUER_SECRET_REF` to capture the secret name.
 
 ```shell
@@ -54,17 +60,6 @@ EOF
 
 The specification defines the signing endpoint and the authentication endpoint
 and credentials.
-
-- `metadata.name` sets the name of the Issuer to `vault-issuer`
-- `spec.vault.server` sets the server address to the Kubernetes service created
-  in the default namespace
-- `spec.vault.path` is the signing endpoint created by Vault's PKI
-  `example-dot-com` role
-- `spec.vault.auth.kubernetes.mountPath` sets the Vault authentication endpoint
-- `spec.vault.auth.kubernetes.role` sets the Vault Kubernetes role to `issuer`
-- `spec.vault.auth.kubernetes/secretRef.name` sets the secret for the Kubernetes
-  service account
-- `spec.vault.auth.kubernetes/secretRef.key` sets the type to `token`.
 
 Generate a certificate named `example-com`.
 

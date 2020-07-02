@@ -34,10 +34,8 @@ The `operator unseal` command reports that Vault is initialized and unsealed.
 Get all the pods within the default namespace.
 
 ```shell
-$ kubectl get pods
-NAME                                    READY   STATUS    RESTARTS   AGE
-vault-0                                 1/1     Running   0          5m49s
-```
+kubectl get pods
+```{{execute}}
 
 Wait until the `vault-0` pod reports that it is running and ready (`1/1`).
 
