@@ -1,7 +1,7 @@
 {
   "pathwayTitle": "Learn HashiCorp Vault",
-  "title": "Configure Vault as a Certificate Manager in Kubernetes with Helm",
-  "description": "Configure Vault as a certificate manager in Kubernetes with Helm.",
+  "title": "Integrate a Kubernetes Cluster with an External Vault",
+  "description": "Integrate a Kubernetes cluster with an existing Vault service.",
   "difficulty": "intermediate",
   "time": "30 minutes",
   "icon": "fa-vault",
