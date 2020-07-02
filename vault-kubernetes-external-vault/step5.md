@@ -1,75 +1,135 @@
-An external Vault may not have a static network address that services within the
-cluster can rely upon. When Vault's network address changes each service also
-needs to change to continue its operation. Another approach to manage this
-network address is to define a Kubernetes service and endpoints.
-
-A _service_ creates an abstraction around pods or an external service. When an
-application running in a pod requests the service, that request is routed to the
-endpoints that share the service name.
-
-Deploy a service named `external-vault` and a corresponding endpoint configured
-to address the `EXTERNAL_VAULT_ADDR`.
+Create a service account, secret, and ClusterRoleBinding with the neccessary
+permissions to allow Vault to perform token reviews with Kubernetes.
 
 ```shell
-cat <<EOF | kubectl apply -f -
+cat <<EOF | kubectl create -f -
 ---
 apiVersion: v1
-kind: Service
+kind: ServiceAccount
 metadata:
-  name: external-vault
-  namespace: default
-spec:
-  ports:
-  - protocol: TCP
-    port: 8200
+  name: vault-auth
 ---
 apiVersion: v1
-kind: Endpoints
+kind: Secret
 metadata:
-  name: external-vault
-subsets:
-  - addresses:
-      - ip: $EXTERNAL_VAULT_ADDR
-    ports:
-      - port: 8200
+  name: vault-auth
+  annotations:
+    kubernetes.io/service-account.name: vault-auth
+type: kubernetes.io/service-account-token
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: role-tokenreview-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+  - kind: ServiceAccount
+    name: vault-auth
+    namespace: default
 EOF
 ```{{execute}}
 
-Verify that the `external-vault` service is addressable from within the
-`devwebapp` pod.
+This creates the `vault-auth` service account, the `vault-auth` secret, and
+the *ClusterRoleBinding* that uses the created service account.
+
+Vault provides a [Kubernetes
+authentication](https://www.vaultproject.io/docs/auth/kubernetes.html) method
+that enables clients to authenticate with a Kubernetes Service Account
+Token.
+
+Enable the Kubernetes authentication method.
 
 ```shell
-kubectl exec \
-  $(kubectl get pod -l app=devwebapp -o jsonpath="{.items[0].metadata.name}") \
-  -- curl -s http://external-vault:8200/v1/sys/seal-status | jq
+vault auth enable kubernetes
 ```{{execute}}
 
-Next, create a deployment that sets the `VAULT_ADDR` to the `external-vault`
-service.
+Vault accepts this service token from any client within the Kubernetes cluster.
+During authentication, Vault verifies that the service account token is valid by
+querying a configured Kubernetes endpoint. To configure it correctly requires
+capturing the JSON web token (JWT) for the service account, the Kubernetes CA
+certificate, and the Kubernetes host URL.
+
+First, get the JSON web token (JWT) for this service account.
 
 ```shell
-kubectl apply -f deployment-01-external-vault-service.yml
+TOKEN_REVIEW_JWT=$(kubectl get secret vault-auth -o go-template='{{ .data.token }}' | base64 --decode)
 ```{{execute}}
 
-This deployment named `devwebapp-through-service` creates a pod that addresses
-Vault through the service instead of the hard-coded network address.
+Next, retrieve the Kubernetes CA certificate.
 
-Get all the pods within the default namespace.
+```shell
+KUBE_CA_CERT=$(kubectl config view --raw --minify --flatten -o jsonpath='{.clusters[].cluster.certificate-authority-data}' | base64 --decode)
+```{{execute}}
+
+Next, retrieve the Kubernetes host URL.
+
+```shell
+KUBE_HOST=$(kubectl config view --raw --minify --flatten -o jsonpath='{.clusters[].cluster.server}')
+```{{execute}}
+
+Finally, configure the Kubernetes authentication method to use the service
+account token, the location of the Kubernetes host, and its certificate.
+
+```shell
+vault write auth/kubernetes/config \
+  token_reviewer_jwt="$TOKEN_REVIEW_JWT" \
+  kubernetes_host="$KUBE_HOST" \
+  kubernetes_ca_cert="$KUBE_CA_CERT"
+```{{execute}}
+
+For a Vault client to read the secret data defined in the [Start
+Vault](#start-vault) section requires that the read capability be granted for
+the path `secret/data/devwebapp/config`.
+
+Write out the policy named `devwebapp` that enables the `read` capability
+for secrets at path `secret/data/devwebapp/config`
+
+```shell
+vault policy write devwebapp - <<EOF
+path "secret/data/devwebapp/config" {
+  capabilities = ["read"]
+}
+EOF
+```{{execute}}
+
+Create a Kubernetes authentication role named `devweb-app`.
+
+```shell
+vault write auth/kubernetes/role/devweb-app \
+  bound_service_account_names=internal-app \
+  bound_service_account_namespaces=default \
+  policies=devwebapp \
+  ttl=24h
+```{{execute}}
+
+The role connects the Kubernetes service account, `internal-app`, and namespace,
+`default`, with the Vault policy, `devwebapp`. The tokens returned after
+authentication are valid for 24 hours.
+
+The Vault Helm chart is able to install only the Vault Agent Injector service.
+
+Add the HashiCorp Helm repository.
+
+```shell
+helm repo add hashicorp https://helm.releases.hashicorp.com
+```{{execute}}
+
+Install the latest version of the Vault server running in external mode.
+
+```shell
+helm install vault hashicorp/vault --set "injector.externalVaultAddr=http://external-vault:8200"
+```{{execute}}
+
+The Vault Agent Injector pod is deployed in the default namespace.
+
+Get all the pods in the default namespace.
 
 ```shell
 kubectl get pods
 ```{{execute}}
 
-Wait until the `devwebapp-through-service` pod is running and ready (`1/1`).
-
-Finally, request content served at `localhost:8080` from within the
-`devwebapp-through-service` pod.
-
-```shell
-kubectl exec \
-  $(kubectl get pod -l app=devwebapp-through-service -o jsonpath="{.items[0].metadata.name}") \
-  -- curl -s localhost:8080
-```{{execute}}
-
-The web application authenticates and requests the secret from the external
-Vault server that it found through the `external-vault` service.
+Wait until the `vault-agent-injector` pod reports that it is running and ready
+(`1/1`).

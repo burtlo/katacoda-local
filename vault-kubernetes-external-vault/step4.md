@@ -1,54 +1,64 @@
-The most direct way for a pod within the cluster to address Vault is with a
-hard-coded network address defined within the application code or provided as an
-environment variable. We've created and published a web application that you
-will deploy with the Vault address overriden.
+An external Vault may not have a static network address that services within the
+cluster can rely upon. When Vault's network address changes each service also
+needs to change to continue its operation. Another approach to manage this
+network address is to define a Kubernetes service and endpoints.
 
-First, create a Kubernetes service account for the pods to use to authenticate.
+A _service_ creates an abstraction around pods or an external service. When an
+application running in a pod requests the service, that request is routed to the
+endpoints that share the service name.
 
-```shell
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: internal-app
-EOF
-```{{execute}}
-
-Create a deployment with this web application that sets the `VAULT_ADDR` to
-`EXTERNAL_VAULT_ADDR`.
+Deploy a service named `external-vault` and a corresponding endpoint configured
+to address the `EXTERNAL_VAULT_ADDR`.
 
 ```shell
 cat <<EOF | kubectl apply -f -
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: devwebapp
-  labels:
-    app: devwebapp
+  name: external-vault
+  namespace: default
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: devwebapp
-  template:
-    metadata:
-      labels:
-        app: devwebapp
-    spec:
-      serviceAccountName: internal-app
-      containers:
-      - name: app
-        image: burtlo/devwebapp-ruby:k8s
-        imagePullPolicy: Always
-        env:
-        - name: VAULT_ADDR
-          value: "http://$EXTERNAL_VAULT_ADDR:8200"
+  ports:
+  - protocol: TCP
+    port: 8200
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: external-vault
+subsets:
+  - addresses:
+      - ip: $EXTERNAL_VAULT_ADDR
+    ports:
+      - port: 8200
 EOF
 ```{{execute}}
 
-The web application, targeting the external Vault, is deployed as a pod within
-the default namespace.
+Verify that the `external-vault` service is addressable from within the
+`devwebapp` pod.
+
+```shell
+kubectl exec \
+  $(kubectl get pod -l app=devwebapp -o jsonpath="{.items[0].metadata.name}") \
+  -- curl -s http://external-vault:8200/v1/sys/seal-status | jq
+```{{execute}}
+
+The `devwebapp` pod is able to reach the Vault server through the
+`external-vault` service.
+
+Open the deployment in `deployment-01-external-vault-service.yml`{{open}}
+
+This deployment sets the `VAULT_ADDR` to the the `external-vault` service.
+
+Next, apply the deployment defined in `deployment-01-external-vault-service.yml`.
+
+```shell
+kubectl apply -f deployment-01-external-vault-service.yml
+```{{execute}}
+
+This deployment named `devwebapp-through-service` creates a pod that addresses
+Vault through the service instead of the hard-coded network address.
 
 Get all the pods within the default namespace.
 
@@ -56,17 +66,16 @@ Get all the pods within the default namespace.
 kubectl get pods
 ```{{execute}}
 
-Wait until the `devwebapp` pod reports that is running and ready (`1/1`).
+Wait until the `devwebapp-through-service` pod is running and ready (`1/1`).
 
-Request content served at `localhost:8080` from within the `devwebapp` pod.
+Finally, request content served at `localhost:8080` from within the
+`devwebapp-through-service` pod.
 
 ```shell
 kubectl exec \
-  $(kubectl get pod -l app=devwebapp -o jsonpath="{.items[0].metadata.name}") \
+  $(kubectl get pod -l app=devwebapp-through-service -o jsonpath="{.items[0].metadata.name}") \
   -- curl -s localhost:8080
 ```{{execute}}
 
-The web application authenticates with the external Vault server using the root
-token and returns the secret defined at the path `secret/data/devwebapp/config`.
-This hard-coded approach is an effective solution if the address to the Vault
-server does not change.
+The web application authenticates and requests the secret from the external
+Vault server that it found through the `external-vault` service.

@@ -1,49 +1,83 @@
-A service bound to all networks on the host, as you configured Vault, is
-addressable by pods within Minikube's cluster by sending requests to the gateway
-address of the Kubernetes cluster.
+The most direct way for a pod within the cluster to address Vault is with a
+hard-coded network address defined within the application code or provided as an
+environment variable. We've created and published a web application that you
+will deploy with the Vault address overriden.
 
-Start a minikube SSH session.
-
-```shell
-minikube ssh
-```{{execute}}
-
-Within this SSH session, retrieve the value of the Minikube host.
+Retrieve the network address of the host.
 
 ```shell
-$ route -n | grep ^0.0.0.0 | awk '{ print $2 }'
+hostname -I | awk '{print $1}'
 ```{{execute}}
 
-Next, retrieve the status of the Vault server to verify network connectivity.
+Create a variable named EXTERNAL_VAULT_ADDR to capture the host address.
 
 ```shell
-$ route -n | grep ^0.0.0.0 | awk '{ print $2 }' | xargs -I{} curl -s http://{}:8200/v1/sys/seal-status | jq
+EXTERNAL_VAULT_ADDR=$(hostname -I | awk '{print $1}')
 ```{{execute}}
 
-The output displays that Vault is initialized and unsealed. This confirms that
-pods within your cluster are able to reach Vault given that each pod is
-configured to use the gateway address.
-
-Next, exit the Minikube SSH session.
+Create a Kubernetes service account for the pods to use to authenticate.
 
 ```shell
-exit
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: internal-app
+EOF
 ```{{execute}}
 
-Finally, create a variable named EXTERNAL_VAULT_ADDR to capture the Minikube
-gateway address.
+Create a deployment with this web application.
 
 ```shell
-EXTERNAL_VAULT_ADDR=$(minikube ssh "route -n | grep ^0.0.0.0 | awk '{ print \$2 }'" | tr -d '\r')
+cat <<EOF | kubectl apply -f -
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devwebapp
+  labels:
+    app: devwebapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devwebapp
+  template:
+    metadata:
+      labels:
+        app: devwebapp
+    spec:
+      serviceAccountName: internal-app
+      containers:
+      - name: app
+        image: burtlo/devwebapp-ruby:k8s
+        imagePullPolicy: Always
+        env:
+        - name: VAULT_ADDR
+          value: "http://$EXTERNAL_VAULT_ADDR:8200"
+EOF
 ```{{execute}}
 
-Verify that the variable contains the ip address you saw when executed in the
-minikube shell.
+The web application, targeting the external Vault, is deployed as a pod within
+the default namespace.
+
+Get all the pods within the default namespace.
 
 ```shell
-echo $EXTERNAL_VAULT_ADDR
+kubectl get pods
 ```{{execute}}
 
-> **Additional output:** If the result contains additional networking
-> information then you need to set the `EXTERNAL_VAULT_ADDR` manually with the
-> value reported in the Minikube SSH session.
+Wait until the `devwebapp` pod reports that is running and ready (`1/1`).
+
+Request content served at `localhost:8080` from within the `devwebapp` pod.
+
+```shell
+kubectl exec \
+  $(kubectl get pod -l app=devwebapp -o jsonpath="{.items[0].metadata.name}") \
+  -- curl -s localhost:8080
+```{{execute}}
+
+The web application authenticates with the external Vault server using the root
+token and returns the secret defined at the path `secret/data/devwebapp/config`.
+This hard-coded approach is an effective solution if the address to the Vault
+server does not change.

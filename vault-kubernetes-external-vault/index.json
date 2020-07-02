@@ -17,24 +17,20 @@
         "text": "step2.md"
       },
       {
-        "title": "Determine the Vault address",
+        "title": "Deploy application with hard-coded Vault address",
         "text": "step3.md"
       },
       {
-        "title": "Deploy application with hard-coded Vault address",
+        "title": "Deploy service and endpoints to address an external Vault",
         "text": "step4.md"
       },
       {
-        "title": "Deploy service and endpoints to address an external Vault",
+        "title": "Install the Vault Helm chart configured to address an external Vault",
         "text": "step5.md"
       },
       {
-        "title": "Install the Vault Helm chart configured to address an external Vault",
-        "text": "step6.md"
-      },
-      {
         "title": "Inject secrets into the pod",
-        "text": "step7.md"
+        "text": "step6.md"
       }
     ],
     "intro": {
