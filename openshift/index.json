@@ -16,28 +16,16 @@
         "text": "step2.md"
       },
       {
-        "title": "Set a secret in Vault",
+        "title": "Configure Kubernetes authentication",
         "text": "step3.md"
       },
       {
-        "title": "Configure Kubernetes authentication",
+        "title": "Deployment: Request secrets directly from Vault",
         "text": "step4.md"
       },
       {
-        "title": "Define a Kubernetes service account",
+        "title": "Deployment: Secrets through Annotations",
         "text": "step5.md"
-      },
-      {
-        "title": "Launch an application",
-        "text": "step6.md"
-      },
-      {
-        "title": "Inject secrets into the pod",
-        "text": "step7.md"
-      },
-      {
-        "title": "Apply a template to the injected secrets",
-        "text": "step8.md"
       }
     ],
     "intro": {
@@ -50,73 +38,23 @@
           "target": "/root"
         },
         {
-          "file": "deployment-orgchart.yml",
-          "target": "/root"
-        },
-        {
-          "file": "deployment-website.yml",
-          "target": "/root"
-        },
-        {
-          "file": "patch-inject-secrets.yml",
-          "target": "/root"
-        },
-        {
-          "file": "patch-inject-secrets-as-template.yml",
-          "target": "/root"
-        },
-        {
-          "file": "patch-issues.yml",
-          "target": "/root"
-        },
-        {
-          "file": "patch-website.yml",
-          "target": "/root"
-        },
-        {
-          "file": "pod-payroll.yml",
+          "file": "deployment-webapp.yml",
           "target": "/root"
         },
         {
           "file": "service-account-internal-app.yml",
           "target": "/root"
-        }
-      ],
-      "client": [
+        },
         {
-          "file": "deployment-issues.yml",
+          "file": "service-account-webapp.yml",
           "target": "/root"
         },
         {
-          "file": "deployment-orgchart.yml",
+          "file": "vault-policy-internal-app.yml",
           "target": "/root"
         },
         {
-          "file": "deployment-website.yml",
-          "target": "/root"
-        },
-        {
-          "file": "patch-inject-secrets.yml",
-          "target": "/root"
-        },
-        {
-          "file": "patch-inject-secrets-as-template.yml",
-          "target": "/root"
-        },
-        {
-          "file": "patch-issues.yml",
-          "target": "/root"
-        },
-        {
-          "file": "patch-website.yml",
-          "target": "/root"
-        },
-        {
-          "file": "pod-payroll.yml",
-          "target": "/root"
-        },
-        {
-          "file": "service-account-internal-app.yml",
+          "file": "vault-policy-webapp.yml",
           "target": "/root"
         }
       ]

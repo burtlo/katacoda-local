@@ -12,8 +12,8 @@ Install the latest version of the Vault server running in development mode.
 
 ```shell
 helm install vault hashicorp/vault \
-    --set "global.openshift=true" \
-    --set "server.dev.enabled=true"
+  --set "global.openshift=true" \
+  --set "server.dev.enabled=true"
 ```{{execute}}
 
 The Vault pod and Vault Agent Injector pod are deployed in the default namespace.
@@ -21,7 +21,7 @@ The Vault pod and Vault Agent Injector pod are deployed in the default namespace
 Display all the pods within the default namespace.
 
 ```shell
-kubectl get pods
+oc get pods
 ```{{execute}}
 
 The `vault-0` pod runs a Vault server in development mode. The
