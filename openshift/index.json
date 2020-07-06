@@ -32,7 +32,7 @@
       "text": "intro.md"
     },
     "assets": {
-      "host01": [
+      "client": [
         {
           "file": "deployment-issues.yml",
           "target": "/root"
