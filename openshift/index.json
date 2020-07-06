@@ -50,11 +50,11 @@
           "target": "/root"
         },
         {
-          "file": "vault-policy-internal-app.yml",
+          "file": "vault-policy-internal-app.hcl",
           "target": "/root"
         },
         {
-          "file": "vault-policy-webapp.yml",
+          "file": "vault-policy-webapp.hcl",
           "target": "/root"
         }
       ]
