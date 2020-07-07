@@ -62,7 +62,7 @@ path "secret/data/webapp/config" {
 EOF
 ```{{execute}}
 
-The policy `webapp` is specified in the Kubernetes authentication role.
+The policy `webapp` is used in the Kubernetes authentication role definition.
 
 ### Create a Kubernetes authentication role
 
@@ -101,6 +101,12 @@ Apply the webapp deployment.
 oc apply --filename deployment-webapp.yml
 ```{{execute}}
 
+Display all the pods within the default namespace.
+
+```shell
+oc get pods
+```{{execute}}
+
 Wait until the `webapp` pod is running and ready (`1/1`).
 
 This web application runs an HTTP service that listens on port 8080.
@@ -109,8 +115,8 @@ Perform a `curl` request at `http://localhost:8080` on the `webapp` pod.
 
 ```shell
 oc exec \
-  $(kubectl get pod -l app=webapp -o jsonpath="{.items[0].metadata.name}") \
-  -c app -- curl http://localhost:8080
+  $(oc get pod -l app=webapp -o jsonpath="{.items[0].metadata.name}") \
+  --container app -- curl -s http://localhost:8080 ; echo
 ```{{execute}}
 
 The web application running on port 8080 in the _webapp_ pod:

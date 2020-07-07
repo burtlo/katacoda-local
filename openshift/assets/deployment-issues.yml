@@ -22,7 +22,7 @@ spec:
       labels:
         app: issues
     spec:
-      serviceAccountName: internal-app
+      serviceAccountName: issues
       containers:
         - name: issues
           image: jweissig/app:0.0.1

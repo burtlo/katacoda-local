@@ -1,23 +1,26 @@
-The Vault Agent Injector pod can inject secrets into a pod. An application
-needs:
+Applications on pods can remain Vault unaware if they provide deployment
+annotations that the Vault Agent Injector detects. This injector service
+leverages the Kubernetes mutating admission webhook to intercept pods that
+define specific annotations and inject a Vault Agent container to manage these
+secrets. An application needs:
 
 - an OpenShift service accont
 - a Vault secret
 - a Vault policy to read the secret
 - a Kubernetes authentication role
-- a deployment with annotations
+- a deployment with Vault Agent Injector annotations
 
 ### Create the OpenShift service account
 
-View the service account defined in `service-account-internal-app.yml`{{open}}.
+View the service account defined in `service-account-issues.yml`{{open}}.
 
 This definition of the service account creates the account with the name
-`internal-app`.
+`issues`.
 
 Apply the service account.
 
 ```shell
-oc apply --filename service-account-internal-app.yml
+oc apply --filename service-account-issues.yml
 ```{{execute}}
 
 Get all the service accounts within the default namespace.
@@ -26,7 +29,7 @@ Get all the service accounts within the default namespace.
 oc get serviceaccounts
 ```{{execute}}
 
-The `internal-app` service account is displayed.
+The `issues` service account is displayed.
 
 ### Create the secret
 
@@ -63,7 +66,7 @@ path "secret/data/issues/config" {
 EOF
 ```{{execute}}
 
-The policy `issues` is specified in the Kubernetes authentication role.
+The policy `issues` is used in the Kubernetes authentication role definition.
 
 ### Create a Kubernetes authentication role
 
@@ -92,7 +95,7 @@ exit
 
 Display the issues deployment defined in `deployment-issues.yml`{{open}}.
 
-The Vault Injector service reads the metadata annotations prefixed with
+The Vault Agent Injector service reads the metadata annotations prefixed with
 `vault.hashicorp.com`.
 
 - `agent-inject` enables the Vault Agent injector service
@@ -108,6 +111,12 @@ Apply the issues deployment.
 oc apply --filename deployment-issues.yml
 ```{{execute}}
 
+Display all the pods within the default namespace.
+
+```shell
+oc get pods
+```{{execute}}
+
 Wait until the `issues` pod is running and ready (`2/2`).
 
 This new pod now launches two containers. The application container, named
@@ -116,17 +125,17 @@ This new pod now launches two containers. The application container, named
 Display the logs of the `vault-agent` container in the `issues` pod.
 
 ```shell
-kubectl logs \
-  $(kubectl get pod -l app=issues -o jsonpath="{.items[0].metadata.name}") \
+oc logs \
+  $(oc get pod -l app=issues -o jsonpath="{.items[0].metadata.name}") \
   --container vault-agent
 ```{{execute}}
 
 Display the secret written to the `issues` container.
 
 ```shell
-kubectl exec \
-  $(kubectl get pod -l app=issues -o jsonpath="{.items[0].metadata.name}") \
-  -c issues -- cat /vault/secrets/issues-config.txt
+oc exec \
+  $(oc get pod -l app=issues -o jsonpath="{.items[0].metadata.name}") \
+  --container issues -- cat /vault/secrets/issues-config.txt
 ```{{execute}}
 
 The secrets are rendered in a PostgreSQL connection string is present on the

@@ -1,4 +1,4 @@
-The recommended way to run Vault on Kubernetes is via the Helm chart. Helm is a
+The recommended way to run Vault on OpenShift is via the Helm chart. Helm is a
 package manager that installs and configures all the necessary components to run
 Vault in several different modes.
 
