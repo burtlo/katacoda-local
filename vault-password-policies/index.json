@@ -8,7 +8,7 @@
   "details": {
     "steps": [
       {
-        "title": "Start Vault",
+        "title": "Start RabbitMQ and Vault",
         "text": "step1.md",
         "courseData": "courseBase.sh"
       },
