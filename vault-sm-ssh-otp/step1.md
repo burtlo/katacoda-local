@@ -26,13 +26,13 @@ sudo chown root:root /usr/local/bin/vault-ssh-helper
 Create a new directory for `vault-ssh-helper`.
 
 ```shell-session
-$ sudo mkdir /etc/vault-ssh-helper.d/
+sudo mkdir /etc/vault-ssh-helper.d/
 ```
 
 Create the config file.
 
 ```shell-session
-$ sudo tee /etc/vault-ssh-helper.d/config.hcl <<EOF
+sudo tee /etc/vault-ssh-helper.d/config.hcl <<EOF
 vault_addr = "http://198.51.100.10:8200"
 ssh_mount_point = "ssh"
 ca_cert = "-dev"
