@@ -9,7 +9,7 @@
     "steps": [
       {
         "title": "Setup the SSH secrets engine",
-        "text": "step1.md",
+        "text": "step1.md"
       },
       {
         "title": "Setup the client authentication",
