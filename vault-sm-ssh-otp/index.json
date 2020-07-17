@@ -34,8 +34,16 @@
     }
   },
   "environment": {
-      "uilayout": "editor-terminal",
-      "uimessage1": "\u001b[32mYour Interactive Bash Terminal. A safe place to learn and execute commands.\u001b[m\r\n"
+    "terminals": [
+      {
+        "name": "vault-server",
+        "target": "master"
+      },
+      {
+        "name": "remote-host",
+        "target": "node"
+      }
+    ]
   },
   "backend": {
     "imageid": "hashicorp-hashistack-multinode"
