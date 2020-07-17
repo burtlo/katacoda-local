@@ -1,3 +1,15 @@
+In **another terminal**, start a RabbitMQ server running on port `15672` that
+has a user named `learn_vault` with the password `hashicorp`.
+
+```shell
+docker run --rm --name some-rabbit -p 15672:15672 \
+    -e RABBITMQ_DEFAULT_USER=learn_vault \
+    -e RABBITMQ_DEFAULT_PASS=hashicorp \
+    rabbitmq:3-management
+```{{execute T3}}
+
+The RabbitMQ server downloads the necessary images and then starts a container.
+
 In **another terminal**, start a Vault dev server with `root` as the root
 token that listens for requests at `0.0.0.0:8200`.
 
@@ -23,15 +35,3 @@ vault status
 ```{{execute T1}}
 
 The Vault server reports that is initialized and unsealed.
-
-In **another terminal**, start a RabbitMQ server running on port `15672` that
-has a user named `learn_vault` with the password `hashicorp`.
-
-```shell
-docker run --rm --name some-rabbit -p 15672:15672 \
-    -e RABBITMQ_DEFAULT_USER=learn_vault \
-    -e RABBITMQ_DEFAULT_PASS=hashicorp \
-    rabbitmq:3-management
-```{{execute T3}}
-
-The RabbitMQ server downloads the necessary images and then starts a container.
