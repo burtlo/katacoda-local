@@ -46,10 +46,6 @@
       "credits": "https://learn.hashicorp.com/vault"
     },
     "assets": {
-      "host01": [
-        { "file": "deployment-01-external-vault-service.yml", "target": "~/" },
-        { "file": "patch-02-inject-secrets.yml", "target": "~/" }
-      ]
     },
     "finish": {
       "text": "finish.md",
