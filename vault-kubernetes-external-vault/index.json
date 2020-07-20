@@ -10,15 +10,22 @@
       {
         "title": "Start Vault",
         "text": "step1.md",
-        "courseData": "courseBase.sh"
+        "courseData": "step1.courseData.sh",
+        "verify": "step1.verify.sh"
       },
       {
         "title": "Start Minikube",
-        "text": "step2.md"
+        "text": "step2.md",
+        "verify": "step2.verify.sh"
       },
       {
         "title": "Deploy application with hard-coded Vault address",
-        "text": "step3.md"
+        "text": "step3.md",
+        "verify": "step3.verify.sh"
+      },
+      {
+        "title": "Verify the question",
+        "text": "step3-part2.md"
       },
       {
         "title": "Deploy service and endpoints to address an external Vault",
@@ -26,7 +33,8 @@
       },
       {
         "title": "Install the Vault Helm chart configured to address an external Vault",
-        "text": "step5.md"
+        "text": "step5.md",
+        "verify": "step5.verify.sh"
       },
       {
         "title": "Inject secrets into the pod",

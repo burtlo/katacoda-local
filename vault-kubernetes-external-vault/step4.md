@@ -44,17 +44,44 @@ kubectl exec \
   -- curl -s http://external-vault:8200/v1/sys/seal-status | jq
 ```{{execute}}
 
-The `devwebapp` pod is able to reach the Vault server through the
-`external-vault` service.
+Pod definitions may now reach the Vault server through the Kubernetes service.
 
-Open the deployment in `deployment-01-external-vault-service.yml`{{open}}
-
-This deployment sets the `VAULT_ADDR` to the the `external-vault` service.
-
-Next, apply the deployment defined in `deployment-01-external-vault-service.yml`.
+Apply the deployment, named `devwebapp-through-service`, that sets the
+`VAULT_ADDR` to the `external-vault` service.
 
 ```shell
-kubectl apply -f deployment-01-external-vault-service.yml
+cat <<EOF | kubectl apply -f -
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devwebapp-through-service
+  labels:
+    app: devwebapp-through-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devwebapp-through-service
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "devweb-app"
+        vault.hashicorp.com/agent-inject-secret-credentials.txt: "secret/data/devwebapp/config"
+      labels:
+        app: devwebapp-through-service
+    spec:
+      containers:
+      - name: app
+        image: burtlo/devwebapp-ruby:k8s
+        imagePullPolicy: Always
+        env:
+        - name: SERVICE_PORT
+          value: "8080"
+        - name: VAULT_ADDR
+          value: "http://external-vault:8200"
+EOF
 ```{{execute}}
 
 This deployment named `devwebapp-through-service` creates a pod that addresses
