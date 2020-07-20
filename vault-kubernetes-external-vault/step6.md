@@ -2,7 +2,20 @@ The Vault Agent Injector only modifies a deployment if it contains a specific
 set of annotations. An existing deployment may have its definition patched to
 include the necessary annotations.
 
-Open the deployment patch `patch-02-inject-secrets.yml`{{open}}.
+Patch the existing `devwebapp` deployment with the annoations to write the
+secrets to the pod.
+
+```shell
+cat <<EOF | kubectl patch deployment devwebapp -f -
+spec:
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "devweb-app"
+        vault.hashicorp.com/agent-inject-secret-credentials.txt: "secret/data/devwebapp/config"
+EOF
+```{{execute}}
 
 These
 [annotations](https://www.vaultproject.io/docs/platform/k8s/injector/index.html#annotations)
@@ -14,13 +27,6 @@ define a partial structure of the deployment schema and are prefixed with
 - `agent-inject-secret-FILEPATH` prefixes the path of the file,
   `credentials.txt` written to the `/vault/secrets` directory. The value
   is the path to the secret defined in Vault.
-
-Patch the existing `devwebapp` deployment with the annoations to write the
-secrets to the pod.
-
-```shell
-kubectl patch deployment devwebapp --patch "$(cat patch-02-inject-secrets.yml)"
-```{{execute}}
 
 A new `devwebapp` pod starts alongside the existing pod. When it is ready the
 original terminates and removes itself from the list of active pods.
