@@ -56,7 +56,7 @@
       {
         "name": "Dashboard Service",
         "command": "kubectl proxy --address='0.0.0.0' --disable-filter=true",
-        "target": "host01"
+        "target": "HOST1"
       }
     ],
     "dashboards": [
@@ -71,6 +71,6 @@
     ]
   },
   "backend": {
-    "imageid": "hashicorp-hashistack"
+    "imageid": "hashicorp-hashistack-cluster"
   }
 }
