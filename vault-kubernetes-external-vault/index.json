@@ -29,7 +29,8 @@
       },
       {
         "title": "Deploy service and endpoints to address an external Vault",
-        "text": "step4.md"
+        "text": "step4.md",
+        "verify": "step4.verify.sh"
       },
       {
         "title": "Install the Vault Helm chart configured to address an external Vault",
@@ -54,7 +55,6 @@
   },
   "environment": {
       "uilayout": "terminal",
-      "hideHiddenFiles": true,
       "uimessage1": "\u001b[32mYour Interactive Bash Terminal. A safe place to learn and execute commands.\u001b[m\r\n"
   },
   "backend": {
