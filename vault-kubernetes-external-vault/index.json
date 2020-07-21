@@ -52,13 +52,6 @@
     "uilayout": "terminal-iframe",
     "uimessage1": "\u001b[32mYour Interactive Bash Terminal. A safe place to learn and execute commands.\u001b[m\r\n",
     "showdashboard": true,
-    "terminals": [
-      {
-        "name": "Dashboard Service",
-        "command": "kubectl proxy --address='0.0.0.0' --disable-filter=true",
-        "target": "HOST1"
-      }
-    ],
     "dashboards": [
       {
         "name": "Vault Server UI",
