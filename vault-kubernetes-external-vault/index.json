@@ -10,18 +10,15 @@
       {
         "title": "Start Vault",
         "text": "step1.md",
-        "courseData": "step1.courseData.sh",
-        "verify": "step1.verify.sh"
+        "courseData": "step1.courseData.sh"
       },
       {
         "title": "Start Minikube",
-        "text": "step2.md",
-        "verify": "step2.verify.sh"
+        "text": "step2.md"
       },
       {
         "title": "Deploy application with hard-coded Vault address",
-        "text": "step3.md",
-        "verify": "step3.verify.sh"
+        "text": "step3.md"
       },
       {
         "title": "Verify the question",
@@ -29,13 +26,11 @@
       },
       {
         "title": "Deploy service and endpoints to address an external Vault",
-        "text": "step4.md",
-        "verify": "step4.verify.sh"
+        "text": "step4.md"
       },
       {
         "title": "Install the Vault Helm chart configured to address an external Vault",
-        "text": "step5.md",
-        "verify": "step5.verify.sh"
+        "text": "step5.md"
       },
       {
         "title": "Inject secrets into the pod",
@@ -54,8 +49,19 @@
     }
   },
   "environment": {
-      "uilayout": "terminal",
-      "uimessage1": "\u001b[32mYour Interactive Bash Terminal. A safe place to learn and execute commands.\u001b[m\r\n"
+    "uilayout": "terminal",
+    "uimessage1": "\u001b[32mYour Interactive Bash Terminal. A safe place to learn and execute commands.\u001b[m\r\n",
+    "showdashboard": true,
+    "dashboards": [
+      {
+        "name": "Vault Server UI",
+        "href": "https://[[HOST_SUBDOMAIN]]-8200-[[KATACODA_HOST]].environments.katacoda.com/ui"
+      },
+      {
+        "name": "Minikube Dashboard",
+        "href": "https://[[HOST_SUBDOMAIN]]-51490-[[KATACODA_HOST]].environments.katacoda.com/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/#/error?namespace=default"
+      }
+    ]
   },
   "backend": {
     "imageid": "hashicorp-hashistack"
