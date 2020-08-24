@@ -14,8 +14,10 @@ cat scenario-policy.hcl
 
 Login with `userpass` authentication with the `scenario-user`.
 
-```
-vault login -method=userpass username=scenario-user password=scenario-password
 ```shell
+vault login -method=userpass \
+  username=scenario-user \
+  password=scenario-password
+```{{execute}}
 
 The environment is ready. Proceed to the next step.
