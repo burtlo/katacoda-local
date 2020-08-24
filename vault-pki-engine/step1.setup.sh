@@ -25,4 +25,5 @@ sleep 5
 
 ufw allow 8200/tcp
 
+export VAULT_ADDR=http://0.0.0.0:8200
 vault login root
