@@ -52,7 +52,13 @@
   "environment": {
     "showdashboard": true,
     "uilayout": "terminal",
-    "uimessage1": "\u001b[32mYour Interactive Bash Terminal. A safe place to learn and execute commands.\u001b[m\r\n"
+    "dashboards": [
+      {
+        "name": "UI",
+        "href": "https://[[HOST_SUBDOMAIN]]-443-[[KATACODA_HOST]].environments.katacoda.com:8200/ui"
+      }
+    ]
+
   },
   "backend": {
     "imageid": "hashicorp-hashistack"
