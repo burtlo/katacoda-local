@@ -55,7 +55,7 @@
     "dashboards": [
       {
         "name": "UI",
-        "href": "https://[[HOST_SUBDOMAIN]]-443-[[KATACODA_HOST]].environments.katacoda.com:8200/ui"
+        "href": "https://[[HOST_SUBDOMAIN]]-8200-[[KATACODA_HOST]].environments.katacoda.com"
       }
     ]
 
