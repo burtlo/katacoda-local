@@ -26,4 +26,13 @@ sleep 5
 ufw allow 8200/tcp
 
 export VAULT_ADDR=http://0.0.0.0:8200
+
 vault login root
+
+vault policy write scenario-policy scenario-policy.hcl
+
+vault auth enable userpass
+
+vault write auth/userpass/users/scenario-user \
+  password=scenario-password \
+  policies=scenario-policy

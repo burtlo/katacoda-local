@@ -6,11 +6,20 @@
   "time": "30 minutes",
   "icon": "fa-vault",
   "details": {
+    "assets": {
+      "host01": [
+        { "file": "scenario-policy.hcl", "target": "~/" }
+      ]
+    },
     "steps": [
       {
+        "title": "Connect to Vault",
+        "text": "step0.md",
+        "courseData": "step0.setup.sh"
+      },
+      {
         "title": "Generate Root CA",
-        "text": "step1.md",
-        "courseData": "step1.setup.sh"
+        "text": "step1.md"
       },
       {
         "title": "Generate Intermediate CA",
