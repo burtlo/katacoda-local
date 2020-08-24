@@ -23,7 +23,6 @@ sudo systemctl start vault
 
 sleep 5
 
-export VAULT_ADDR=http://0.0.0.0:8200
 ufw allow 8200/tcp
 
 vault login root

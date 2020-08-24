@@ -1,6 +1,12 @@
 Generate a self-signed certificate authority (CA) root certificate using PKI
 secrets engine.
 
+Export an environment variable for the `vault` CLI to address the target Vault server.
+
+```shell
+export VAULT_ADDR=http://0.0.0.0:8200
+```{{execute}}
+
 Enable the `pki` secrets engine at the `pki` path.
 
 ```shell
