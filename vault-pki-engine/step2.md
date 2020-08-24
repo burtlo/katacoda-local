@@ -1,5 +1,4 @@
-Now, you create an intermediate CA using the root CA you regenerated in the
-previous step.
+Create an intermediate CA using the root CA you generated.
 
 Enable the `pki` secrets engine at the `pki_int` path.
 
@@ -8,14 +7,14 @@ vault secrets enable -path=pki_int pki
 ```{{execute}}
 
 Tune the `pki_int` secrets engine to issue certificates with a maximum
-time-to-live (TTL) of 43800 hours.
+time-to-live (TTL) of `43800` hours.
 
 ```shell
 vault secrets tune -max-lease-ttl=43800h pki_int
 ```{{execute}}
 
-Execute the following command to generate an intermediate and save the CSR as
-`pki_intermediate.csr`.
+Generate an intermediate certificate signing request (CSR) and save and save it
+in `pki_intermediate.csr`.
 
 ```shell
 vault write -format=json pki_int/intermediate/generate/internal \
@@ -23,8 +22,8 @@ vault write -format=json pki_int/intermediate/generate/internal \
         | jq -r '.data.csr' > pki_intermediate.csr
 ```{{execute}}
 
-Sign the intermediate certificate with the root certificate and save the
-generated certificate as `intermediate.cert.pem`.
+Sign the intermediate CSR with the root certificate and save the generated
+certificate as `intermediate.cert.pem`.
 
 ```shell
 vault write -format=json pki/root/sign-intermediate csr=@pki_intermediate.csr \
@@ -32,8 +31,7 @@ vault write -format=json pki/root/sign-intermediate csr=@pki_intermediate.csr \
         | jq -r '.data.certificate' > intermediate.cert.pem
 ```{{execute}}
 
-Once the CSR is signed and the root CA returns a certificate, it can be imported
-back into Vault.
+Import the signed certificate into Vault.
 
 ```shell
 vault write pki_int/intermediate/set-signed certificate=@intermediate.cert.pem

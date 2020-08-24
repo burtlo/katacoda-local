@@ -1,5 +1,3 @@
-In this step, you create a role named `example-dot-com`.
-
 Create a role named `example-dot-com` which allows subdomains.
 
 ```shell
