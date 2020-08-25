@@ -30,7 +30,9 @@ cat learn-vault-example.ldif
 Add the data in `openldap-data.ldif` to the OpenLDAP server.
 
 ```shell
-ldapadd -cxWD "cn=admin,dc=learn,dc=example" -f learn-vault-example.ldif
+ldapadd -cxD "cn=admin,dc=learn,dc=example" \
+  -w 2LearnVault \
+  -f learn-vault-example.ldif
 ```{{execute}}
 
 When prompted for password, enter `2LearnVault`.

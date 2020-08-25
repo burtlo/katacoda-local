@@ -22,9 +22,16 @@ Generate credentials from the `learn` role.
 vault read openldap/static-cred/learn
 ```{{execute}}
 
+Generate another set of credentials from the `learn` role and save the password to a variable named `LDAP_PASSWORD`.
+
+```shell
+LDAP_PASSWORD=$(vault read --format=json openldap/static-cred/learn | jq -r ".data.password")
+```{{execute}}
+
+
 Perform an LDAP search with the generated `dn` and `password`.
 
 ```shell
-$ ldapsearch -D 'cn=alice,ou=users,dc=learn,dc=example' \
-    -w <PASSWORD>
+ldapsearch -D 'cn=alice,ou=users,dc=learn,dc=example' \
+    -w $LDAP_PASSWORD
 ```{{execute}}

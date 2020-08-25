@@ -3,5 +3,5 @@ After configuration immediately rotate the _root credentials_ to ensure Vault ma
 Rotate the root credential.
 
 ```shell
-$ vault write -f openldap/rotate-root
+vault write -f openldap/rotate-root
 ```{{execute}}
