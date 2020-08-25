@@ -8,14 +8,16 @@
   "details": {
     "assets": {
       "host01": [
-        { "file": "scenario-policy.hcl", "target": "~/" },
+        { "file": "admin-policy.hcl", "target": "~/" },
+        { "file": "alice-policy.hcl", "target": "~/" },
         { "file": "learn-vault-example.ldif", "target": "~/" }
       ]
     },
     "steps": [
       {
         "title": "Start OpenLDAP",
-        "text": "step-prereq.md"
+        "text": "step-prereq.md",
+        "courseData": "step-prereq.setup.sh"
       },
       {
         "title": "Connect to Vault",
