@@ -40,7 +40,8 @@
       },
       {
         "title": "Request OpenLDAP credentials",
-        "text": "step5.md"
+        "text": "step5.md",
+        "courseData": "step5.setup.sh"
       }
     ],
     "intro": {
