@@ -8,7 +8,7 @@
   "details": {
     "assets": {
       "host01": [
-        { "file": "scenario-policy.hcl", "target": "~/" }
+        { "file": "scenario-policy.hcl", "target": "~/" },
         { "file": "learn-vault-example.ldif", "target": "~/" }
       ]
     },
