@@ -15,7 +15,6 @@ vault login -method=userpass \
   password=alice-password
 ```{{execute}}
 
-
 Generate credentials from the `learn` role.
 
 ```shell
@@ -28,10 +27,12 @@ Generate another set of credentials from the `learn` role and save the password 
 LDAP_PASSWORD=$(vault read --format=json openldap/static-cred/learn | jq -r ".data.password")
 ```{{execute}}
 
-
-Perform an LDAP search with the generated `dn` and `password`.
+Perform an empty LDAP search with the generated `dn` and `password`.
 
 ```shell
-ldapsearch -D 'cn=alice,ou=users,dc=learn,dc=example' \
-    -w $LDAP_PASSWORD
+ldapsearch -b "cn=alice,ou=users,dc=learn,dc=example" \
+  -D 'cn=alice,ou=users,dc=learn,dc=example' \
+  -w $LDAP_PASSWORD
 ```{{execute}}
+
+The results display the password for this user.

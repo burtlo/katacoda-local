@@ -35,8 +35,6 @@ ldapadd -cxD "cn=admin,dc=learn,dc=example" \
   -f learn-vault-example.ldif
 ```{{execute}}
 
-When prompted for password, enter `2LearnVault`.
-
 The output displays the new entries added to the OpenLDAP server.
 
 Now you are ready to configure Vault.
