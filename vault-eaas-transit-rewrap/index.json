@@ -14,7 +14,8 @@
     "steps": [
       {
         "title": "Prerequisites",
-        "text": "step-prereq.md"
+        "text": "step-prereq.md",
+        "courseData": "step-prereq.setup.sh"
       },
       {
         "title": "Connect to Vault",
