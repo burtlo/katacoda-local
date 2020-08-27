@@ -20,7 +20,7 @@ vault token create -policy=rewrap_example
 
 
 ```shell
-APP_TOKEN=$(vault token create -format=json  -policy=rewrap_example | jq -r ".data.token")
+APP_TOKEN=$(vault token create -format=json -policy=rewrap_example | jq -r ".auth.client_token")
 ```{{execute}}
 
 Display the token created.
