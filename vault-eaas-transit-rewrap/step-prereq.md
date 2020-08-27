@@ -1,7 +1,7 @@
 Clone the `vault-guides` repository.
 
 ```shell
-git clone https://github.com/hashicorp/vault-guides.git
+git clone --depth 1 https://github.com/hashicorp/vault-guides.git
 ```{{execute}}
 
 This repository contains supporting content for all of the Vault learn guides.
@@ -36,16 +36,16 @@ mkdir ~/rewrap-data
 Create a database named `my_app` that sets the root user password to `root` and
 adds a user named `vault`.
 
-```shell-session
-$ docker run --name mysql-rewrap \
-        -p 3306:3306 \
-        -v ~/rewrap-data/var/lib/mysql \
-        -e MYSQL_ROOT_PASSWORD=root \
-        -e MYSQL_ROOT_HOST=% \
-        -e MYSQL_DATABASE=my_app \
-        -e MYSQL_USER=vault \
-        -e MYSQL_PASSWORD=vaultpw \
-        -d mysql/mysql-server:5.7
-```
+```shell
+docker run --name mysql-rewrap \
+    -p 3306:3306 \
+    -v ~/rewrap-data/var/lib/mysql \
+    -e MYSQL_ROOT_PASSWORD=root \
+    -e MYSQL_ROOT_HOST=% \
+    -e MYSQL_DATABASE=my_app \
+    -e MYSQL_USER=vault \
+    -e MYSQL_PASSWORD=vaultpw \
+    -d mysql/mysql-server:5.7
+```{{execute}}
 
 The required files are present and the database is available.

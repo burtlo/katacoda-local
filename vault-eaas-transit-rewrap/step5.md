@@ -6,11 +6,11 @@ Run the web application again and the secrets are re-wrapped.
 
 ```shell
 VAULT_TOKEN=$APP_TOKEN \
-  VAULT_ADDR=$VAULT_ADDRESS \
+  VAULT_ADDR=$VAULT_ADDR \
   VAULT_TRANSIT_KEY=my_app_key \
   SHOULD_SEED_USERS=true \
   dotnet run
-```
+```{{execute}}
 
 Connect to the database with the root credentials.
 

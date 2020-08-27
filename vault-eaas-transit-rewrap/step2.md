@@ -1,7 +1,10 @@
 (**Persona:** security engineer)
 
-Display the limited scope policy stored in `rewrap_example.hcl`{{open}} for the
-sample application.
+Display the limited scope policy stored in `rewrap_example.hcl`.
+
+```shell
+cat rewrap_example.hcl
+```{{execute}}
 
 Create the `rewrap_example` policy.
 
@@ -17,7 +20,7 @@ vault token create -policy=rewrap_example
 
 
 ```shell
-APP_TOKEN=$(vault -format=json token create -policy=rewrap_example | jq -r ".data.token")
+APP_TOKEN=$(vault token create -format=json  -policy=rewrap_example | jq -r ".data.token")
 ```{{execute}}
 
 Display the token created.
