@@ -1,6 +1,4 @@
-(**Persona:** security engineer)
-
-The encryption key (`my_app_key`) can be rotated easily.
+The encryption key (`my_app_key`) can be rotated.
 
 Rotate the `my_app_key` transit key.
 
