@@ -1,30 +1,21 @@
-In the previous step you configured the PostgreSQL secrets engine with the
-allowed role named `readonly`. A role is a logical name within Vault that maps
-to database credentials. These credentials are expressed as SQL statements and
-assigned to the Vault role.
+A Vault [role](https://www.vaultproject.io/docs/secrets/azure/index.html#roles)
+lets you configure either an existing service principal or a set of Azure roles.
 
-Display the SQL used to create credentials stored in `readonly.sql`.
+**Azure Resource Group:** The commmands in this step assume that you have
+created an resource group named **vault-education**.
 
-```shell
-cat readonly.sql
-```{{execute}}
-
-The SQL contains the templatized fields `{{name}}`, `{{password}}`, and
-`{{expiration}}`. These values are provided by Vault when the credentials are
-created. This creates a new role and then grants that role the permissions
-defined in the Postgres role named `ro`. This Postgres role was created when
-Postgres was started.
-
-Create the role named `readonly` that creates credentials with the
-`readonly.sql`.
+Create a Vault role named, `edu-app` mapped to the Azure role named,
+`Contributor` in the `vault-education` resource group.
 
 ```shell
-vault write database/roles/readonly \
-    db_name=postgresql \
-    creation_statements=@readonly.sql \
-    default_ttl=1h \
-    max_ttl=24h
+vault write azure/roles/edu-app ttl=1h azure_roles=-<<EOF
+    [
+      {
+        "role_name": "Contributor",
+        "scope": "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/vault-education"
+      }
+    ]
+EOF
 ```{{execute}}
 
-The role generates database credentials with a default TTL of 1 hour and max TTL
-of 24 hours.
+The role named `edu-app` is created.

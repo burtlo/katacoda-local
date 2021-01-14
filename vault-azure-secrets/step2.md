@@ -1,18 +1,38 @@
-The database secrets engine supports many databases through a plugin interface.
-To use a Postgres database with the secrets engine requires further
-configuration with the `postgresql-database-plugin` plugin and connection
-information.
+The Azure secrets engine requires the credentials you generated in the
+[Create an Azure Service Principal] step to communicate with Azure and generate
+service principals.
 
-Configure the database secrets engine with the connection credentials for the
-Postgres database.
+Create variables to store your Azure credentials.
+
+> Replace the placeholder values defined on each line with the credential requested.
 
 ```shell
-vault write database/config/postgresql \
-    plugin_name=postgresql-database-plugin \
-    connection_url="postgresql://{{username}}:{{password}}@localhost:5432/postgres?sslmode=disable" \
-    allowed_roles=readonly \
-    username="root" \
-    password="rootpassword"
+read -d "\n" SUBSCRIPTION_ID CLIENT_ID CLIENT_SECRET TENANT_ID <<<$(echo "
+$SUBSCRIPTION_ID
+$CLIENT_ID
+$CLIENT_SECRET
+<Tenant_id_OR_Directory_id>
+")
 ```{{execute}}
 
-The secrets engine is configured to work with Postgres.
+Display the variables.
+
+```shell
+echo "
+Subscription ID = $SUBSCRIPTION_ID
+Client ID = $CLIENT_ID
+Client Secret = $CLIENT_SECRET
+Tenant ID = $TENANT_ID
+"
+```{{execute}}
+
+Configure the Azure secrets engine with the Azure credentials.
+
+```shell
+vault write azure/config \
+        subscription_id=$SUBSCRIPTION_ID  \
+        client_id=$CLIENT_ID \
+        client_secret=$CLIENT_SECRET \
+        tenant_id=$TENANT_ID
+```{{execute}}
+

@@ -1,7 +1,9 @@
-Enable the database secrets engine at the `database/` path.
+Enable the azure secrets engine at its default path.
 
 ```shell
-vault secrets enable database
+vault secrets enable azure
 ```{{execute}}
 
-The database secrets engine is enabled.
+The secrets engine is enabled at the path `azure/`. To enable the secrets engine
+at a different path requires that you use the `-path` parameter and the desired
+path.
