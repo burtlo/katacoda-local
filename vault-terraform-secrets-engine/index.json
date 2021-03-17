@@ -1,0 +1,75 @@
+{
+  "pathwayTitle": "Learn HashiCorp Vault",
+  "title": "Terraform Secrets Engine",
+  "description": "Dynamically generate, manage, and revoke credentials for Terraform Cloud (TFC) and Terraform Enterprise (TFE)",
+  "difficulty": "intermediate",
+  "time": "20 minutes",
+  "icon": "fa-vault",
+  "details": {
+    "steps": [
+      {
+        "title": "Prerequisites",
+        "text": "step-prereq.md"
+      },
+      {
+        "title": "Connect to Vault",
+        "text": "step0.md",
+        "courseData": "step0.setup.sh"
+      },
+      {
+        "title": "Enable the Terraform secrets engine",
+        "text": "step1.md"
+      },
+      {
+        "title": "Configure Terraform secrets engine",
+        "text": "step2.md"
+      },
+      {
+        "title": "Create a role",
+        "text": "step3.md"
+      },
+      {
+        "title": "Request Terraform credentials",
+        "text": "step4.md"
+      },
+      {
+        "title": "Manage leases",
+        "text": "step5.md"
+      }
+    ],
+    "intro": {
+      "text": "intro.md"
+    },
+    "assets": {
+      "host01": [
+        {
+          "file": "admin-policy.hcl",
+          "target": "~/"
+        },
+        {
+          "file": "apps-policy.hcl",
+          "target": "~/"
+        }
+      ]
+    },
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "environment": {
+    "showdashboard": true,
+    "uilayout": "terminal",
+    "uimessage1": "\u001b[32mYour Interactive Bash Terminal. A safe place to learn and execute commands.\u001b[m\r\n",
+    "dashboards": [
+      {
+        "name": "Terraform Cloud",
+        "href": "https://www.terraform.io/cloud"
+      }
+    ]
+  },
+  "backend": {
+    "imageid": "hashicorp-hashistack",
+    "lifetime": 30
+  },
+  "private": true
+}
