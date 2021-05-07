@@ -4,7 +4,7 @@ given to the `provider-vault` executable. To configure it requires the IP
 address of the Vault server, the name of the Vault Kubernetes authentication
 role, and the secrets.
 
-View the definition of the SecretProviderClass
+Open the definition of the SecretProviderClass
 `secret-provider-class-vault-database.yml`{{open}}.
 
 The `vault-database` SecretProviderClass describes one secret object:
@@ -27,3 +27,5 @@ in the default namespace.
 ```shell
 kubectl describe SecretProviderClass vault-database
 ```{{execute}}
+
+This resource is ready to be mounted as a volume on a pod.
