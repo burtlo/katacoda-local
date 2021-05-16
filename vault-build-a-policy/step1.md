@@ -76,7 +76,28 @@ cat vault_audit.log | jq -s ".[-1].request.path,.[-1].request.operation"
 
 Select the KV-V2 tab.
 
+Read the https://www.vaultproject.io/api-docs/secret/kv/kv-v2#read-secret-version
 
+Translate GET to `read`.
+Translate `/secret/data/:path` to `/socials/data/twitter`.
+
+## Define the policy
+
+```hcl
+path "socials/data/twitter" {
+  capabilities = [ "read" ]
+}
+```
+
+Append the policy definition to the local policy file
+
+```shell
+echo "path \"socials/data/twitter\" {
+  capabilities = [ \"read\" ]
+}" >> apps-policy.hcl
+```{{execute}}
+
+## Apply the policy
 
 Login as root.
 
@@ -88,4 +109,20 @@ Update the `apps-policy`.
 
 ```shell
 vault policy write apps-policy apps-policy.hcl
+```{{execute}}
+
+## Test the policy
+
+Login with the `apps` user.
+
+```shell
+vault login -method=userpass \
+  username=apps \
+  password=apps-password
+```{{execute}}
+
+Attempt to get the Twitter keys from the path.
+
+```shell
+vault kv get socials/twitter
 ```{{execute}}
