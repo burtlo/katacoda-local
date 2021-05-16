@@ -17,8 +17,16 @@
         "courseData": "step0.setup.sh"
       },
       {
-        "title": "Apps need social keys",
+        "title": "App needs social keys",
         "text": "step1.md"
+      },
+      {
+        "title": "App needs database",
+        "text": "step2.md"
+      },
+      {
+        "title": "App needs transit",
+        "text": "step3.md"
       }
     ],
     "finish": {
@@ -51,6 +59,14 @@
         {
           "name": "KV-V2 API",
           "href": "https://www.vaultproject.io/api-docs/secret/kv/kv-v2"
+        },
+        {
+          "name": "Database API",
+          "href": "https://www.vaultproject.io/api-docs/secret/databases"
+        },
+        {
+          "name": "Transit API",
+          "href": "https://www.vaultproject.io/api-docs/secret/transit"
         }
       ]
   },

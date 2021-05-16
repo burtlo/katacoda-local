@@ -1,17 +1,4 @@
-The web application needs access to the social keys.
-
-The web application will use the `apps-password` policy.
-
-```shell
-vault policy read apps-policy
-```{{execute}}
-
-This policy is assigned to the `apps` userpass login that is granted the
-`apps-policy`.
-
-```shell
-vault read auth/userpass/users/apps
-```{{execute}}
+The web application needs access to the transit encryption key
 
 Login with the `apps` user.
 
@@ -23,10 +10,10 @@ vault login -method=userpass \
 
 ## Perform action
 
-Attempt to get the Twitter keys from the path.
+Attempt to encrypt content with transit key
 
 ```shell
-vault kv get socials/twitter
+vault write transit/encrypt/webapp-auth plaintext=$(base64 <<< "my secret data")
 ```{{execute}}
 
 ## Discover the policy
@@ -36,12 +23,13 @@ vault kv get socials/twitter
 This error message is displayed when the command is executed.
 
 ```
-Error making API request.
+Error writing data to transit/encrypt/webapp-auth: Error making API request.
 
-URL: GET http://0.0.0.0:8200/v1/sys/internal/ui/mounts/socials/twitter
+URL: PUT http://0.0.0.0:8200/v1/transit/encrypt/webapp-auth
 Code: 403. Errors:
 
-* preflight capability check returned 403, please ensure client's policies grant access to path "socials/twitter/"
+* 1 error occurred:
+        * permission denied
 ```
 
 The message displays the path that is required.
@@ -78,18 +66,18 @@ cat vault_audit.log | jq -s ".[-1].request.path,.[-1].request.operation"
 
 ### API Documentation
 
-Select the KV-V2 tab.
+Select the transit tab.
 
-Read the https://www.vaultproject.io/api-docs/secret/kv/kv-v2#read-secret-version
+Read the https://www.vaultproject.io/api-docs/secret/transit#encrypt-data
 
-Translate GET to `read`.
-Translate `/secret/data/:path` to `/socials/data/twitter`.
+Translate UPDATE to `update`.
+Translate `/transit/encrypt/:name` to `/transit/encrypt/webapp-auth`.
 
 ## Define the policy
 
 ```hcl
-path "socials/data/twitter" {
-  capabilities = [ "read" ]
+path "/transit/encrypt/webapp-auth" {
+  capabilities = [ "update" ]
 }
 ```
 
@@ -97,8 +85,8 @@ Append the policy definition to the local policy file
 
 ```shell
 echo "
-path \"socials/data/twitter\" {
-  capabilities = [ \"read\" ]
+path \"transit/encrypt/webapp-auth\" {
+  capabilities = [ \"update\" ]
 }" >> apps-policy.hcl
 ```{{execute}}
 
@@ -126,8 +114,8 @@ vault login -method=userpass \
   password=apps-password
 ```{{execute}}
 
-Attempt to get the Twitter keys from the path.
+Encrypt the content with the transit key.
 
 ```shell
-vault kv get socials/twitter
+vault write transit/encrypt/webapp-auth plaintext=$(base64 <<< "my secret data")
 ```{{execute}}
