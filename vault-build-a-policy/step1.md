@@ -21,12 +21,13 @@ vault login -method=userpass \
   password=apps-password
 ```{{execute}}
 
+## Perform action
+
 Attempt to get the Twitter keys from the path.
 
 ```shell
 vault kv get socials/twitter
 ```{{execute}}
-
 
 ## Discover the policy
 

@@ -44,8 +44,6 @@ vault write auth/userpass/users/apps \
   password=apps-password \
   policies=apps-policy
 
-rm /root/.vault-token
-
 # Create KV-V2 secrets engine
 
 vault secrets enable -path=socials kv-v2
