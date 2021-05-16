@@ -28,6 +28,8 @@ export VAULT_ADDR=http://0.0.0.0:8200
 
 vault login root
 
+vault audit enable file file_path=/root/vault_audit.log -log_raw=true
+
 vault policy write admin-policy admin-policy.hcl
 
 vault auth enable userpass
@@ -46,12 +48,12 @@ rm /root/.vault-token
 
 # Create KV-V2 secrets engine
 
-vault secrets enable kv-v2 -path=socials
+vault secrets enable -path=socials kv-v2
 vault kv put socials/twitter api_key=MQfS4XAJXYE3SxTna6Yzrw api_secret_key=uXZ4VHykCrYKP64wSQ72SRM10WZwirnXq5rmyiLnVk
 
 # Create database secrets engine
 
-vault secrets enable database -path=database
+vault secrets enable -path=database database
 
 vault write database/config/postgresql \
     plugin_name=postgresql-database-plugin \
@@ -68,5 +70,5 @@ vault write database/roles/readonly \
 
 # Create transit secrets engine
 
-vault secrets enable transit -path=transit
+vault secrets enable -path=transit transit
 vault write -f transit/keys/webapp-auth

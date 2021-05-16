@@ -16,5 +16,9 @@ Start with defining an apps policy.
 
 
 ```shell
+export VAULT_ADDR=http://0.0.0.0:8200
+```{{execute}}
+
+```shell
 vault status
 ```{{execute}}
