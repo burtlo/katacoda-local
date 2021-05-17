@@ -1,7 +1,7 @@
 {
   "pathwayTitle": "Learn HashiCorp Vault",
-  "title": "Vault Policies - Build a Policy",
-  "description": "Create policies for multiple stakeholders",
+  "title": "Granular Access Control with Vault Policies",
+  "description": "Teaches you how to create policies that are secure, flexible, and reusable for your team.",
   "difficulty": "beginner",
   "time": "20 minutes",
   "icon": "fa-vault",
@@ -12,21 +12,25 @@
     },
     "steps": [
       {
-        "title": "Setup",
+        "title": "Your new Vault server",
         "text": "step0.md",
         "courseData": "step0.setup.sh"
       },
       {
-        "title": "App needs social keys",
-        "text": "step1.md"
+        "title": "The app client",
+        "text": "step-app-intro.md"
       },
       {
-        "title": "App needs database",
-        "text": "step2.md"
+        "title": "App requirement #1",
+        "text": "step-app-1.md"
       },
       {
-        "title": "App needs transit",
-        "text": "step3.md"
+        "title": "App requirement #2",
+        "text": "step-app-2.md"
+      },
+      {
+        "title": "App requirement #3",
+        "text": "step-app-3.md"
       }
     ],
     "finish": {

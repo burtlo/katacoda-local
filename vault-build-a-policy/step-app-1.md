@@ -1,17 +1,19 @@
-The web application needs access to the social keys.
+The application requires access to API keys stored within Vault. These secrets
+are maintained in a KV-V2 secrets engine enabled at the path `socials`.
 
-The web application will use the `apps-password` policy.
-
-```shell
-vault policy read apps-policy
-```{{execute}}
-
-This policy is assigned to the `apps` userpass login that is granted the
-`apps-policy`.
+Login with the `root` user.
 
 ```shell
-vault read auth/userpass/users/apps
+vault login root
 ```{{execute}}
+
+Show the secret.
+
+```shell
+vault kv get socials/twitter
+```{{execute}}
+
+## As the application
 
 Login with the `apps` user.
 
@@ -21,9 +23,7 @@ vault login -method=userpass \
   password=apps-password
 ```{{execute}}
 
-## Perform action
-
-Attempt to get the Twitter keys from the path.
+Fail to show the secret.
 
 ```shell
 vault kv get socials/twitter
