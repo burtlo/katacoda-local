@@ -1,4 +1,4 @@
-In this scenario, you are given a Vault server preconfigured and a database.
+
 
 This server is development mode.
 
@@ -16,10 +16,17 @@ Connect to the target Vault server.
 vault status
 ```{{execute}}
 
-You are now logged in as the `root` token. This is the highest priviledge token
-and can perform any operation. This token is used for only initial configuration
-or in development mode.
+
+The Vault server writes out operation logs and an audit log.
+
+Show the operation logs.
 
 ```shell
+cat ~/log/vault.log
+```{{execute}}
 
+Show the audit logs.
+
+```shell
+cat ~/log/vault_audit.log | jq
 ```{{execute}}

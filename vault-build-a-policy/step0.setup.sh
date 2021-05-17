@@ -28,7 +28,7 @@ export VAULT_ADDR=http://0.0.0.0:8200
 
 vault login root
 
-vault audit enable file file_path=/root/vault_audit.log -log_raw=true
+vault audit enable file file_path=/root/log/vault_audit.log -log_raw=true
 
 vault policy write admin-policy admin-policy.hcl
 
