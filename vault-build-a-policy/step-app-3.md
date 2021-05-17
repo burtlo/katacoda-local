@@ -1,3 +1,13 @@
+```
+               __
+    ..=====.. |==|      _____________________
+    ||     || |= |     < Encryption, please! >
+ _  ||     || |^*| _    ---------------------
+|=| o=,===,=o |__||=|
+|_|  _______)~`)  |_|
+    [=======]  ()
+```
+
 The web application needs access to the transit encryption key
 
 Login with the `apps` user.

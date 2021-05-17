@@ -1,3 +1,13 @@
+```
+               __
+    ..=====.. |==|      ___________________
+    ||     || |= |     < Database, please! >
+ _  ||     || |^*| _    -------------------
+|=| o=,===,=o |__||=|
+|_|  _______)~`)  |_|
+    [=======]  ()
+```
+
 The web application needs access to database
 
 Login with the `apps` user.

@@ -25,17 +25,29 @@
         "text": "step-app-1.md"
       },
       {
+        "title": "App answer #1",
+        "text": "step-app-1-answer.md"
+      },
+      {
         "title": "App requirement #2",
         "text": "step-app-2.md"
       },
       {
+        "title": "App answer #2",
+        "text": "step-app-2-answer.md"
+      },
+      {
         "title": "App requirement #3",
         "text": "step-app-3.md"
+      },
+      {
+        "title": "App answer #3",
+        "text": "step-app-3-answer.md"
       }
     ],
     "finish": {
       "text": "finish.md",
-      "credits": "https://learn.hashicorp.com/vault"
+      "credits": "Learn more at https://learn.hashicorp.com/vault"
     },
     "assets": {
       "host01": [

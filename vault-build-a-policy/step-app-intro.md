@@ -1,8 +1,8 @@
 ```
                __
-    ..=====.. |==|
-    ||     || |= |
- _  ||     || |^*| _
+    ..=====.. |==|      _______________
+    ||     || |= |     < Hello, Vault! >
+ _  ||     || |^*| _    ---------------
 |=| o=,===,=o |__||=|
 |_|  _______)~`)  |_|
     [=======]  ()
@@ -10,8 +10,8 @@
 
 The appliation, or app, is a non-human client that requires secrets like API
 keys, database credentials, or encryption-as-a-service. Web applications
-typically authenticate through an `approle`. To make exploration easier
-`userpass` is enabled and a user names `apps` was created.
+typically authenticate through an *approle*. To make exploration easier
+*userpass* is enabled and a user names `apps` was created.
 
 Show the `apps` user.
 
@@ -19,8 +19,7 @@ Show the `apps` user.
 vault read auth/userpass/users/apps
 ```{{execute}}
 
-The `apps` user is assigned two policies. The `apps-policy` policy is the one
-that you manage.
+The `apps` user is assigned the `apps-policy` policy.
 
 Show the `apps-policy` policy.
 
