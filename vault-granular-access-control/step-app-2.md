@@ -50,27 +50,37 @@ Login with the `root` user.
 vault login root
 ```{{execute}}
 
-#### with the CLI flags
+#### 1️⃣ with the CLI flags
 
-The `vault` CLI communicates direclty with Vault. It can optionally display
-the the HTTP verb and path requested by a command.
+The `vault` CLI communicates direclty with Vault. It can optionally output a
+`curl` command equivalent of its operation with `-output-curl-string`.
 
-Show the *curl* command for getting the secret
+#### 2️⃣ with the audit logs
+
+The audit log maintains a list of all requests handled by Vault.
+
+Get the database credentials from the database role.
 
 ```shell
-vault read -output-curl-string database/creds/readonly
+vault read database/creds/readonly
 ```{{execute}}
 
-The response displays the `curl` command.
+Show the last logged object.
 
 ```shell
-curl -H "X-Vault-Request: true" -H "X-Vault-Token: $(vault print token)" http://localhost:8200/v1/database/creds/readonly
-```
+cat log/vault_audit.log | jq -s ".[-1]"
+```{{execute}}
 
-The HTTP verb by default is `GET` which translates to the `read` capability.
-The requested URL displays the path `/database/creds/readonly`.
+The object describes the time, the authorized token, the request, and the
+response.
 
-#### with the audit logs
+Show the request of the last logged object.
+
+```shell
+cat log/vault_audit.log | jq -s ".[-1].request"
+```{{execute}}
+
+The request describes the operation that was performed on the path.
 
 Show the request's path and the request's operation.
 
@@ -78,19 +88,8 @@ Show the request's path and the request's operation.
 cat log/vault_audit.log | jq -s ".[-1].request.path,.[-1].request.operation"
 ```{{execute}}
 
-The response displays the path `"database/creds/readonly"` and the operation `"read"`.
-
-
-### with the API docs
-
-Select the Database API tab to view the [Database API
-documentation](https://www.vaultproject.io/api-docs/secret/databases).
-
-The [generate
-credentials](https://www.vaultproject.io/api-docs/secret/databases#generate-credentials)
-operation describes the capability and the path. The operation requres the `GET`
-HTTP verb which translates to the `read` capability. The templatized path
-`/database/creds/:name` becomes `/database/creds/readonly` when the role name is provided.
+The response displays the path `"database/creds/readonly"` and the operation
+`"read"`.
 
 ## Enact the policy
 

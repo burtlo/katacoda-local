@@ -50,37 +50,18 @@ Login with the `root` user.
 vault login root
 ```{{execute}}
 
-#### with the CLI flags
+#### 1️⃣ with the CLI flags
 
-The `vault` CLI communicates direclty with Vault. It can optionally display
-the the HTTP verb and path requested by a command.
+The `vault` CLI communicates direclty with Vault. It can optionally output a
+`curl` command equivalent of its operation with `-output-curl-string`.
 
-Show the *curl* command for getting the secret
+#### 2️⃣ with the audit logs
 
-```shell
-vault write -output-curl-string transit/encrypt/app-auth plaintext=$(base64 <<< "my secret data")
-```{{execute}}
+The audit log maintains a list of all requests handled by Vault. The last
+command executed is recorded as the last object `cat log/vault_audit.log | jq -s
+".[-1].request.path,.[-1].request.operation"`.
 
-The response displays the `curl` command.
-
-```shell
-curl -X PUT -H "X-Vault-Request: true" -H "X-Vault-Token: $(vault print token)" -d '{"plaintext":"bXkgc2VjcmV0IGRhdGEK"}' http://localhost:8200/v1/transit/encrypt/app-auth
-```
-
-The HTTP verb is `PUT` which translates to the `update` capability.
-The requested URL displays the path `/transit/encrypt/app-auth`.
-
-#### with the audit logs
-
-Show the request's path and the request's operation.
-
-```shell
-cat log/vault_audit.log | jq -s ".[-1].request.path,.[-1].request.operation"
-```{{execute}}
-
-The response displays the path `"transit/encrypt/app-auth"` and the operation `"update"`.
-
-### with the API docs
+### 3️⃣ with the API docs
 
 Select the Transit API tab to view the [Transit API
 documentation](https://www.vaultproject.io/api-docs/secret/transit).

@@ -55,8 +55,9 @@ vault login root
 
 #### 1️⃣ with the CLI flags
 
-The `vault` CLI communicates direclty with Vault. It can optionally display
-the the HTTP verb and path requested by a command.
+The `vault` CLI communicates direclty with Vault. It can optionally output a
+`curl` command equivalent of its operation. This command contains the HTTP verb
+and path requested.
 
 Show the *curl* command for getting the secret
 
@@ -67,34 +68,11 @@ vault kv get -output-curl-string external-apis/socials/twitter
 The response displays the `curl` command.
 
 ```shell
-curl -H "X-Vault-Request: true" -H "X-Vault-Token: $(vault print token)"
-http://localhost:8200/v1/external-apis/data/socials/data/twitter
+curl -H "X-Vault-Request: true" -H "X-Vault-Token: $(vault print token)" http://localhost:8200/v1/external-apis/data/socials/twitter
 ```
 
 The HTTP verb by default is `GET` which translates to the `read` capability. The
 requested URL displays the path `/external-apis/data/socials/twitter`.
-
-#### 2️⃣ with the audit logs
-
-Show the last logged object.
-
-```shell
-cat log/vault_audit.log | jq -s ".[-1]"
-```{{execute}}
-
-Show the request of the last logged object.
-
-```shell
-cat log/vault_audit.log | jq -s ".[-1].request"
-```{{execute}}
-
-Show the request's path and the request's operation.
-
-```shell
-cat log/vault_audit.log | jq -s ".[-1].request.path,.[-1].request.operation"
-```{{execute}}
-
-The response displays the path `"external-apis/data/socials/twitter"` and the operation `"read"`.
 
 #### 3️⃣ with the API docs
 

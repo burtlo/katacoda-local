@@ -10,6 +10,8 @@ docker run \
       --publish 5432:5432 \
       postgres
 
+sleep 5
+
 docker exec -it postgres psql -c "CREATE ROLE ro NOINHERIT;"
 docker exec -it postgres psql -c "GRANT SELECT ON ALL TABLES IN SCHEMA public TO "ro";"
 
