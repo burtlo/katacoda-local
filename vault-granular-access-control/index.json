@@ -43,6 +43,10 @@
       {
         "title": "App answer #3",
         "text": "step-app-3-answer.md"
+      },
+      {
+        "title": "The admin client",
+        "text": "step-admin-intro.md"
       }
     ],
     "finish": {
@@ -52,7 +56,7 @@
     "assets": {
       "host01": [
         {
-          "file": "admin-policy.hcl",
+          "file": "admins-policy.hcl",
           "target": "~/"
         },
         {
