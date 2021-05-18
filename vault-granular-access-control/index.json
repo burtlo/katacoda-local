@@ -47,6 +47,14 @@
       {
         "title": "The admin client",
         "text": "step-admin-intro.md"
+      },
+      {
+        "title": "Admin requirement #1",
+        "text": "step-admin-1.md"
+      },
+      {
+        "title": "Admin answer #1",
+        "text": "step-admin-1-answer.md"
       }
     ],
     "finish": {
