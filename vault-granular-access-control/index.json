@@ -18,7 +18,8 @@
       },
       {
         "title": "The app client",
-        "text": "step-app-intro.md"
+        "text": "step-app-intro.md",
+        "courseData": "step-app-intro.sh"
       },
       {
         "title": "App requirement #1",
@@ -46,7 +47,8 @@
       },
       {
         "title": "The admin client",
-        "text": "step-admin-intro.md"
+        "text": "step-admin-intro.md",
+        "courseData": "step-admin-intro.sh"
       },
       {
         "title": "Admin requirement #1",
