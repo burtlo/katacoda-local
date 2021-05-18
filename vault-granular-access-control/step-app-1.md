@@ -74,18 +74,6 @@ curl -H "X-Vault-Request: true" -H "X-Vault-Token: $(vault print token)" http://
 The HTTP verb by default is `GET` which translates to the `read` capability. The
 requested URL displays the path `/external-apis/data/socials/twitter`.
 
-#### 3️⃣ with the API docs
-
-Select the KV-V2 API tab to view the [KV-V2 API
-documentation](https://www.vaultproject.io/api-docs/secret/kv/kv-v2).
-
-The [read secret
-version](https://www.vaultproject.io/api-docs/secret/kv/kv-v2#read-secret-version)
-operation describes the capability and the path. The operation requires the
-`GET` HTTP verb which translates to the `read` capability. The templatized path
-`/secret/data/:path` becomes `/external-apis/data/socials/twitter` when the path element
-is provided by the secret.
-
 ## Enact the policy
 
 What policy is required to meet this requirement?

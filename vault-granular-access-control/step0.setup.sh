@@ -12,8 +12,10 @@ docker run \
 
 sleep 5
 
-docker exec -it postgres psql -c "CREATE ROLE ro NOINHERIT;"
-docker exec -it postgres psql -c "GRANT SELECT ON ALL TABLES IN SCHEMA public TO "ro";"
+docker exec -i postgres psql <<EOF
+CREATE ROLE ro NOINHERIT;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO "ro";
+EOF
 
 # Start the Vault server in the background
 mkdir -p ~/log
