@@ -1,7 +1,7 @@
 The Postgres database is started in a Docker container.
 
 ```shell
-docker ps --name=postgres
+docker ps --filter name=postgres
 ```{{execute}}
 
 Wait until this command displays a running `postgres` container.

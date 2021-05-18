@@ -46,8 +46,8 @@ vault write auth/userpass/users/apps \
 
 # Create KV-V2 secrets engine
 
-vault secrets enable -path=socials kv-v2
-vault kv put socials/twitter api_key=MQfS4XAJXYE3SxTna6Yzrw api_secret_key=uXZ4VHykCrYKP64wSQ72SRM10WZwirnXq5rmyiLnVk
+vault secrets enable -path=external-apis kv-v2
+vault kv put external-apis/socials/twitter api_key=MQfS4XAJXYE3SxTna6Yzrw api_secret_key=uXZ4VHykCrYKP64wSQ72SRM10WZwirnXq5rmyiLnVk
 
 # Create database secrets engine
 

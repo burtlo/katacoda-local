@@ -9,7 +9,8 @@
 ```
 
 The application requires access to API keys stored within Vault. These secrets
-are maintained in a KV-V2 secrets engine enabled at the path `socials`.
+are maintained in a KV-V2 secrets engine enabled at the path `external-apis`.
+The secret path within the engine is `socials/twitter`.
 
 Login with the `root` user.
 
@@ -20,7 +21,7 @@ vault login root
 Get the secret.
 
 ```shell
-vault kv get socials/twitter
+vault kv get external-apis/socials/twitter
 ```{{execute}}
 
 ## As the application
@@ -39,7 +40,7 @@ vault login -method=userpass \
 Fail to get the secret.
 
 ```shell
-vault kv get socials/twitter
+vault kv get external-apis/socials/twitter
 ```{{execute}}
 
 It is time to discover how to write a policy to meet this requirement.
@@ -52,7 +53,7 @@ Login with the `root` user.
 vault login root
 ```{{execute}}
 
-#### with the CLI flags
+#### 1️⃣ with the CLI flags
 
 The `vault` CLI communicates direclty with Vault. It can optionally display
 the the HTTP verb and path requested by a command.
@@ -60,20 +61,20 @@ the the HTTP verb and path requested by a command.
 Show the *curl* command for getting the secret
 
 ```shell
-vault kv get -output-curl-string socials/twitter
+vault kv get -output-curl-string external-apis/socials/twitter
 ```{{execute}}
 
 The response displays the `curl` command.
 
 ```shell
 curl -H "X-Vault-Request: true" -H "X-Vault-Token: $(vault print token)"
-http://localhost:8200/v1/socials/data/twitter
+http://localhost:8200/v1/external-apis/data/socials/data/twitter
 ```
 
-The HTTP verb by default is `GET` which translates to the `read` capability.
-The requested URL displays the path `/socials/data/twitter`.
+The HTTP verb by default is `GET` which translates to the `read` capability. The
+requested URL displays the path `/external-apis/data/socials/twitter`.
 
-#### with the audit logs
+#### 2️⃣ with the audit logs
 
 Show the last logged object.
 
@@ -93,9 +94,9 @@ Show the request's path and the request's operation.
 cat log/vault_audit.log | jq -s ".[-1].request.path,.[-1].request.operation"
 ```{{execute}}
 
-The response displays the path `"socials/data/twitter"` and the operation `"read"`.
+The response displays the path `"external-apis/data/socials/twitter"` and the operation `"read"`.
 
-#### with the API docs
+#### 3️⃣ with the API docs
 
 Select the KV-V2 API tab to view the [KV-V2 API
 documentation](https://www.vaultproject.io/api-docs/secret/kv/kv-v2).
@@ -104,7 +105,7 @@ The [read secret
 version](https://www.vaultproject.io/api-docs/secret/kv/kv-v2#read-secret-version)
 operation describes the capability and the path. The operation requires the
 `GET` HTTP verb which translates to the `read` capability. The templatized path
-`/secret/data/:path` becomes `/socials/data/twitter` when the path element
+`/secret/data/:path` becomes `/external-apis/data/socials/twitter` when the path element
 is provided by the secret.
 
 ## Enact the policy
