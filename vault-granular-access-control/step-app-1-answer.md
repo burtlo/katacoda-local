@@ -14,7 +14,8 @@ Append the policy definition to the local policy file.
 echo "
 path \"socials/data/twitter\" {
   capabilities = [ \"read\" ]
-}" >> apps-policy.hcl
+}
+" >> apps-policy.hcl
 ```{{execute}}
 
 Update the policy named `apps-policy`.

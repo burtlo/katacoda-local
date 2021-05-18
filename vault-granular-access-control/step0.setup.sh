@@ -69,4 +69,4 @@ vault write database/roles/readonly \
 # Create transit secrets engine
 
 vault secrets enable -path=transit transit
-vault write -f transit/keys/webapp-auth
+vault write -f transit/keys/app-auth

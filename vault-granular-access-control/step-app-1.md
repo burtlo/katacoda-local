@@ -61,10 +61,14 @@ Show the *curl* command for getting the secret
 
 ```shell
 vault kv get -output-curl-string socials/twitter
-```
+```{{execute}}
 
+The response displays the `curl` command.
+
+```shell
 curl -H "X-Vault-Request: true" -H "X-Vault-Token: $(vault print token)"
 http://localhost:8200/v1/socials/data/twitter
+```
 
 The HTTP verb by default is `GET` which translates to the `read` capability.
 The requested URL displays the path `/socials/data/twitter`.
@@ -89,7 +93,9 @@ Show the request's path and the request's operation.
 cat log/vault_audit.log | jq -s ".[-1].request.path,.[-1].request.operation"
 ```{{execute}}
 
-#### with the API Docs
+The response displays the path `"socials/data/twitter"` and the operation `"read"`.
+
+#### with the API docs
 
 Select the KV-V2 API tab to view the [KV-V2 API
 documentation](https://www.vaultproject.io/api-docs/secret/kv/kv-v2).
