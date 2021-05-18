@@ -23,14 +23,24 @@
 (________mrf\____.dBBBb.________)____)
 ```
 
-The administrator requires the ability to manage the API keys stored within
-Vault. These secrets are maintained in a KV-V2 secrets engine enabled at the
-path `external-apis`. The secret path within the engine is `socials/twitter`.
+The administrator requires the ability to create, update and delete the API keys
+stored within Vault. These secrets are maintained in a KV-V2 secrets engine
+enabled at the path `external-apis`. The secret path within the engine is
+`socials/twitter`.
 
 Login with the `root` user.
 
 ```shell
 vault login root
+```{{execute}}
+
+Create a new secret.
+
+```shell
+vault kv put \
+    external-apis/socials/instagram \
+    api_key=hiKD3vMecH2M6t9TTe9kZW \
+    api_secret_key=XEkmqo7pc7BaRkCJZ3kwhLM8VKQBFLW7mG7KUjJTyz
 ```{{execute}}
 
 Update the secret.
@@ -42,37 +52,19 @@ vault kv put \
     api_secret_key=XEkmqo7pc7BaRkCJZ3kwhLM8VKQBFLW7mG7KUjJTyz
 ```{{execute}}
 
-## As the application
-
-The policies defined for `admins` do not grant it the capability to perform this
-operation.
-
-Login with the `admins` user.
+Delete a secret.
 
 ```shell
-vault login -method=userpass \
-  username=admins \
-  password=admins-password
+vault kv delete external-apis/socials/instagram
 ```{{execute}}
 
-Fail to update the secret.
+Undelete a secret.
 
 ```shell
-vault kv put \
-    external-apis/socials/twitter \
-    api_key=hiKD3vMecH2M6t9TTe9kZW \
-    api_secret_key=XEkmqo7pc7BaRkCJZ3kwhLM8VKQBFLW7mG7KUjJTyz
+vault kv undelete version=1 external-apis/socials/instagram
 ```{{execute}}
-
-It is time to discover how to write a policy to meet this requirement.
 
 ## Discover the policy change required
-
-Login with the `root` user.
-
-```shell
-vault login root
-```{{execute}}
 
 #### 1️⃣ with the CLI flags
 
