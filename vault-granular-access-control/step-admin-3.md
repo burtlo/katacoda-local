@@ -51,8 +51,6 @@ Set the minimum decryption version to **2**.
 vault write transit/keys/app-auth/config min_decryption_version=2
 ```{{execute}}
 
-TODO rewrap
-
 ## Discover the policy change required
 
 #### 1️⃣ with the CLI flags
