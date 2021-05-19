@@ -11,6 +11,10 @@ path "database/creds/readonly" {
 path "sys/leases/+/database/creds/readonly/+" {
   capabilities = [ "create", "read", "update", "delete", "list", "sudo" ]
 }
+
+path "sys/leases/+/database/creds/readonly" {
+  capabilities = [ "create", "read", "update", "delete", "list", "sudo" ]
+}
 ```
 
 Open the `admins-policy.hcl`{{open}} and append the following policies.
@@ -21,6 +25,10 @@ path "database/creds/readonly" {
 }
 
 path "sys/leases/+/database/creds/readonly/+" {
+  capabilities = [ "create", "read", "update", "delete", "list", "sudo" ]
+}
+
+path "sys/leases/+/database/creds/readonly" {
   capabilities = [ "create", "read", "update", "delete", "list", "sudo" ]
 }
 </pre>
