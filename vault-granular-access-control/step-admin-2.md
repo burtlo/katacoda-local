@@ -23,10 +23,10 @@
 (________mrf\____.dBBBb.________)____)
 ```
 
-The administrator requires the ability to create, update and delete the API keys
-stored within Vault. These secrets are maintained in a KV-V2 secrets engine
-enabled at the path `external-apis`. The secret path within the engine is
-`socials/twitter`.
+The administrator requires the ability to manage the database leases stored
+within Vault. These secrets are maintained in a database secrets engine at the
+path `database` in a role named `readonly`. The leases are stored at
+`sys/leases/lookup/database/creds/+`
 
 Login with the `root` user.
 
@@ -34,34 +34,34 @@ Login with the `root` user.
 vault login root
 ```{{execute}}
 
-Create a new secret.
+List the existing leases.
 
 ```shell
-vault kv put \
-    external-apis/socials/instagram \
-    api_key=hiKD3vMecH2M6t9TTe9kZW \
-    api_secret_key=XEkmqo7pc7BaRkCJZ3kwhLM8VKQBFLW7mG7KUjJTyz
+vault list sys/leases/lookup/database/creds/readonly
 ```{{execute}}
 
-Update the secret.
+Create a variable that stores the first lease ID.
 
 ```shell
-vault kv put \
-    external-apis/socials/twitter \
-    api_key=hiKD3vMecH2M6t9TTe9kZW \
-    api_secret_key=XEkmqo7pc7BaRkCJZ3kwhLM8VKQBFLW7mG7KUjJTyz
+LEASE_ID=$(vault list -format=json sys/leases/lookup/database/creds/readonly | jq -r ".[0]")
 ```{{execute}}
 
-Delete a secret.
+Renew the lease for the database credential by passing its lease ID.
 
 ```shell
-vault kv delete external-apis/socials/instagram
+vault lease renew database/creds/readonly/$LEASE_ID
 ```{{execute}}
 
-Undelete a secret.
+Revoke the lease without waiting for its expiration.
 
 ```shell
-vault kv undelete -versions=1 external-apis/socials/instagram
+vault lease revoke database/creds/readonly/$LEASE_ID
+```{{execute}}
+
+Revoke all the leases with the prefix `database/creds/readonly`.
+
+```shell
+vault lease revoke -prefix database/creds/readonly
 ```{{execute}}
 
 ## Discover the policy change required
@@ -79,8 +79,8 @@ command executed is recorded as the last object `cat log/vault_audit.log | jq -s
 
 ### 3️⃣ with the API docs
 
-Select the KV-V2 API tab to view the [KV-V2 API
-documentation](https://www.vaultproject.io/api-docs/secret/kv/kv-v2).
+Select the Database API tab to view the [Database API
+documentation](https://www.vaultproject.io/api-docs/secret/databases).
 
 ## Enact the policy
 

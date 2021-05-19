@@ -23,10 +23,9 @@
 (________mrf\____.dBBBb.________)____)
 ```
 
-The administrator requires the ability to create, update and delete the API keys
-stored within Vault. These secrets are maintained in a KV-V2 secrets engine
-enabled at the path `external-apis`. The secret path within the engine is
-`socials/twitter`.
+The administrator requires the ability to maintain Vault's transit encryption
+service. This encryption service is maintained in a transit secrets engine
+enabled at the path `transit` with a key named `app-auth`.
 
 Login with the `root` user.
 
@@ -34,35 +33,25 @@ Login with the `root` user.
 vault login root
 ```{{execute}}
 
-Create a new secret.
+Encrypt the plaintext with the transit key.
 
 ```shell
-vault kv put \
-    external-apis/socials/instagram \
-    api_key=hiKD3vMecH2M6t9TTe9kZW \
-    api_secret_key=XEkmqo7pc7BaRkCJZ3kwhLM8VKQBFLW7mG7KUjJTyz
+vault write transit/encrypt/app-auth plaintext=$(base64 <<< "my secret data")
 ```{{execute}}
 
-Update the secret.
+Rotate the transit key.
 
 ```shell
-vault kv put \
-    external-apis/socials/twitter \
-    api_key=hiKD3vMecH2M6t9TTe9kZW \
-    api_secret_key=XEkmqo7pc7BaRkCJZ3kwhLM8VKQBFLW7mG7KUjJTyz
+vault write -f transit/keys/app-auth/rotate
 ```{{execute}}
 
-Delete a secret.
+Set the minimum decryption version to **2**.
 
 ```shell
-vault kv delete external-apis/socials/instagram
+vault write transit/keys/app-auth/config min_decryption_version=2
 ```{{execute}}
 
-Undelete a secret.
-
-```shell
-vault kv undelete -versions=1 external-apis/socials/instagram
-```{{execute}}
+TODO rewrap
 
 ## Discover the policy change required
 
@@ -79,8 +68,8 @@ command executed is recorded as the last object `cat log/vault_audit.log | jq -s
 
 ### 3️⃣ with the API docs
 
-Select the KV-V2 API tab to view the [KV-V2 API
-documentation](https://www.vaultproject.io/api-docs/secret/kv/kv-v2).
+Select the Transit API tab to view the [Transit API
+documentation](https://www.vaultproject.io/api-docs/secret/transit).
 
 ## Enact the policy
 

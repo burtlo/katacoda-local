@@ -1,12 +1,8 @@
 ## Enact the policy
 
-The app requires the `read` capability for the path `external-apis/data/socials/twitter`.
+The admin requires the `create`, `read`, `update` and `delete` capability for the path `external-apis/data/socials/twitter`. They also require similar access to keys within the `socials/` path prefix. Lastly, the ability to `undelete` is found at a different path `external-apis/undelete/socials/+`.
 
 ```hcl
-path "external-apis/data/socials/twitter" {
-  capabilities = [ "create", "read", "update", "delete" ]
-}
-
 path "external-apis/data/socials/+" {
   capabilities = [ "create", "read", "update", "delete" ]
 }
@@ -16,23 +12,17 @@ path "external-apis/undelete/socials/+" {
 }
 ```
 
-Append the policy definition to the local policy file.
+Open the `admins-policy.hcl`{{open}} and append the following policies.
 
-```shell
-echo "
-path \"external-apis/data/socials/twitter\" {
-  capabilities = [ \"create\", \"read\", \"update\", \"delete\" ]
+<pre class="file" data-filename="admins-policy.hcl" data-target="append">
+path "external-apis/data/socials/+" {
+  capabilities = [ "create", "read", "update", "delete" ]
 }
 
-path \"external-apis/data/socials/+\" {
-  capabilities = [ \"create\", \"read\", \"update\", \"delete\" ]
+path "external-apis/undelete/socials/+" {
+  capabilities = [ "update" ]
 }
-
-path \"external-apis/undelete/socials/+\" {
-  capabilities = [ \"update\" ]
-}
-" >> admins-policy.hcl
-```{{execute}}
+</pre>
 
 Update the policy named `admins-policy`.
 
