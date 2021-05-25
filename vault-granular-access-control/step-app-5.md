@@ -33,10 +33,16 @@ Get the secret for `app2`. **This should only be accessible to `app2`.**
 vault kv get external-apis/app2/socials/twitter
 ```{{execute}}
 
-## Discover the policy change required
+## Enact the policy
 
 The policy should allow `app1` user to only get the `app1` secret and the `app2`
 user to only get the `app2` secret.
+
+What policy is required to meet this requirement?
+
+1. Define the policy in the local file.
+2. Update the policy named `apps-policy` with an identity template.
+3. Test the policy with the `app1` and `app2` users.
 
 #### 1️⃣ with the CLI flags
 
@@ -52,11 +58,3 @@ command executed is recorded as the last object `cat log/vault_audit.log | jq -s
 
 Read the [Identity
 documentation](https://www.vaultproject.io/docs/secrets/identity#token-contents-and-templates).
-
-## Enact the policy
-
-What policy is required to meet this requirement?
-
-1. Define the policy in the local file.
-2. Update the policy named `apps-policy` with an identity template.
-3. Test the policy with the `app1` and `app2` users.
