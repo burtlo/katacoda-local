@@ -26,7 +26,7 @@ vault write auth/userpass/users/app1 \
 
 vault write identity/entity name="app1"
 
-APP1_CAN_ID=$(vault read -format=json identity/entity/name/app1 | jq -r '.["data"]["aliases"][0]["canonical_id"]')
+APP1_CAN_ID=$(vault read -format=json identity/entity/name/app1 | jq -r '.["data"]["id"]')
 
 vault write identity/entity-alias \
   name="app1" \
@@ -49,7 +49,7 @@ vault write auth/userpass/users/app2 \
 
 vault write identity/entity name="app2"
 
-APP2_CAN_ID=$(vault read -format=json identity/entity/name/app2 | jq -r '.["data"]["aliases"][0]["canonical_id"]')
+APP2_CAN_ID=$(vault read -format=json identity/entity/name/app2 | jq -r '.["data"]["id"]')
 
 vault write identity/entity-alias \
   name="app2" \
