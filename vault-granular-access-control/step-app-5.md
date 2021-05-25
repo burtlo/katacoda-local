@@ -15,50 +15,22 @@ These secrets are maintained in a KV-v2 secrets engine enabled at the path
 `app2/socials/twitter`.  The application `app1` should not havce access to
 secrets in `app2`.
 
-Login with the `app1` user.
-
-```shell
-vault login -method=userpass \
-  username=app1 \
-  password=app1-password
-```{{execute}}
-
-Get the secret for `app1`.
-
-```shell
-vault kv get external-apis/app1/socials/twitter
-```{{execute}}
-
-Get the secret for `app2`. **This operation should not be allowed.**
-
-```shell
-vault kv get external-apis/app2/socials/twitter
-```{{execute}}
-
-Login with the `app2` user.
-
-```shell
-vault login -method=userpass \
-  username=app2 \
-  password=app2-password
-```{{execute}}
-
-Get the secret for `app1`. **This operation should not be allowed.**
-
-```shell
-vault kv get external-apis/app1/socials/twitter
-```{{execute}}
-
-Get the secret for `app2`.
-
-```shell
-vault kv get external-apis/app2/socials/twitter
-```{{execute}}
-
 Login with the `root` user.
 
 ```shell
 vault login root
+```{{execute}}
+
+Get the secret for `app1`. **This should only be accessible to `app1`.**
+
+```shell
+vault kv get external-apis/app1/socials/twitter
+```{{execute}}
+
+Get the secret for `app2`. **This should only be accessible to `app2`.**
+
+```shell
+vault kv get external-apis/app2/socials/twitter
 ```{{execute}}
 
 ## Discover the policy change required
