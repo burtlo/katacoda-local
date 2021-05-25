@@ -59,6 +59,5 @@ requested URL displays the path `/external-apis/data/socials/twitter`.
 What policy is required to meet this requirement?
 
 1. Define the policy in the local file.
-2. Update the policy named `apps-policy`.
+2. Update the policy named `apps-policy` to use `+` or `*` operator.
 3. Test the policy with the `apps` user.
-4. Refactor the policy to use `+` or `*` operator.
