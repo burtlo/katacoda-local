@@ -28,7 +28,7 @@ The response shows that the Vault server is initialized and unsealed.
 
 The server writes its operation logs and audit log to the file system.
 
-Show the audit logs in `log/vault_audit.log`.
+Open the audit logs stored in `log/vault_audit.log`{{open}}.
 
 The file audit log writes JSON objects to the log file. The `jq` command parses,
 filters and presents that data to you in a more digestable way.
