@@ -60,6 +60,5 @@
   "backend": {
     "imageid": "minikube",
     "lifetime": 30
-  },
-  "private": true
+  }
 }

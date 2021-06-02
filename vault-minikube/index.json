@@ -61,6 +61,5 @@
   "backend": {
     "imageid": "minikube-running",
     "lifetime": 30
-  },
-  "private": true
+  }
 }
