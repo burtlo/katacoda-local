@@ -1,4 +1,5 @@
-Deploy the webapp in Kubernetes by applying the file `deployment-01-webapp.yml`{{open}}.
+Deploy the webapp in Kubernetes by applying the file
+`deployment-01-webapp.yml`{{open}}.
 
 ```shell
 kubectl apply --filename deployment-01-webapp.yml
@@ -13,6 +14,8 @@ kubectl get pods
 ```{{execute T1}}
 
 The web application pod is displayed here as the pod prefixed with `webapp`.
+
+Wait until the `webapp` status becomes **Running** and Ready (`1/1`).
 
 This web application is running an HTTP service that is listening on port 8080.
 

@@ -1,24 +1,31 @@
-Maintaining the annotations as a patch enables you to apply them to any
-deployment. These annotations may also be defined with the deployment.
+The annotations may patch deployments but pods require that the annotations be
+included in their intitial definition.
 
-View the deployment for the `payrole` application in `deployment-04-payrole.yml`{{open}}.
+Open the pod definition in `pod-payroll.yml`{{open}}.
 
-Apply the deployment defined in `deployment-04-payrole.yml`.
+The name of this pod is `payroll`. The `spec.template.spec.serviceAccountName`
+defines the service account `internal-app` to run this container. The
+annotations are defined with the pod.
+
+Apply the pod defined in `pod-payroll.yml`.
 
 ```shell
-kubectl apply --filename deployment-04-payrole.yml
+kubectl apply --filename pod-payroll.yml
 ```{{execute}}
 
-Get all the pods within the `default` namespace.
+Get all the pods within the default namespace.
 
 ```shell
 kubectl get pods
 ```{{execute}}
 
-Finally, display the secret written to the `payrole` container.
+Wait until the `payroll` pod is running and ready (`2/2`).
+
+Display the secret written to the `payroll` container.
 
 ```shell
-kubectl exec $(kubectl get pod -l app=payrole -o jsonpath="{.items[0].metadata.name}") --container payrole -- cat /vault/secrets/database-config.txt
+kubectl exec payroll --container payroll -- cat /vault/secrets/database-config.txt
 ```{{execute}}
 
-The PostgreSQL connection string is present on the container.
+The secrets are rendered in a PostgreSQL connection string is present on the
+container.
